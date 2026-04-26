@@ -1,42 +1,17 @@
 <?php
-include 'koneksi.php'; 
 session_start();
+include 'koneksi.php';
 
-// Jika sudah login, langsung lempar ke dashboard agar tidak bisa akses halaman login lagi
-if (isset($_SESSION['user'])) {
-    header("location:dashboard.php");
-    exit();
-}
-
-// Cek apakah tombol 'login' sudah diklik
 if (isset($_POST['login'])) {
-    // Mengamankan input
-    $user = mysqli_real_escape_string($conn, $_POST['username']);
-    $pass = $_POST['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    // Query ke database
-    $sql = "SELECT * FROM pengguna WHERE username='$user' AND password='$pass'";
-    $query = mysqli_query($conn, $sql);
-
-    if (!$query) {
-        die("Query gagal: " . mysqli_error($conn));
-    }
-
-    if (mysqli_num_rows($query) > 0) {
-        $data = mysqli_fetch_assoc($query);
-        $_SESSION['role'] = $data['role'];
-        $_SESSION['user'] = $data['username'];
-        
-        // PENGALIHAN ALUR BARU:
-        // Jika admin, ke dashboard admin. Jika user biasa, ke dashboard utama.
-        if ($data['role'] == "admin") {
-            header("location:admin_dashboard.php");
-        } else {
-            header("location:dashboard.php"); // Diubah dari index.php ke dashboard.php
-        }
-        exit();
+    // CARA MANUAL: Langsung tentukan username & password tanpa cek database
+    if ($username == "admin" && $password == "admin123") {
+        $_SESSION['status'] = "login";
+        header("location:admin/index.php"); // Sesuaikan dengan folder tujuanmu
     } else {
-        echo "<script>alert('Username atau Password Salah!'); window.location='login.php';</script>";
+        header("location:login.php?pesan=gagal");
     }
 }
 ?>
