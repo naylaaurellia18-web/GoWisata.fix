@@ -9,7 +9,7 @@ if (isset($_POST['login'])) {
     // CARA MANUAL: Langsung tentukan username & password tanpa cek database
     if ($username == "admin" && $password == "admin123") {
         $_SESSION['status'] = "login";
-        header("location:admin/index.php"); // Sesuaikan dengan folder tujuanmu
+        header("location:admin/dashboard.php"); // Sesuaikan dengan folder tujuanmu
     } else {
         header("location:login.php?pesan=gagal");
     }
