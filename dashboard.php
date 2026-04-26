@@ -79,7 +79,7 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['username'])) {
             <i class="bi bi-airplane-engines me-2"></i>GoWisata
         </a>
         <div class="ms-auto d-flex align-items-center">
-            <span class="text-white me-3 d-none d-md-block">Hallo <b><?= htmlspecialchars($nama_tampil); ?></b></span>
+            <span class="text-white me-3 d-none d-md-block">Hallo,selamat datang <b><?= htmlspecialchars($nama_tampil); ?></b></span>
             <a href="logout.php" class="btn btn-light btn-sm rounded-pill px-3 fw-bold text-dark">Keluar</a>
         </div>
     </div>
