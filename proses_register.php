@@ -1,21 +1,14 @@
 <?php
-include 'koneksi.php'; // Pastikan file koneksi.php ada di folder yang sama
+include 'koneksi.php';
 
-if (isset($_POST['register'])) {
-    // Ambil data dari form login.php
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $email    = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $role     = $_POST['role'];
-
-    // Query masukkan data
-    $query = "INSERT INTO pengguna (username, email, password, role) 
-              VALUES ('$username', '$email', '$password', '$role')";
-    
-    if (mysqli_query($conn, $query)) {
-        echo "<script>alert('Pendaftaran Berhasil! Silakan Login.'); window.location='login.php';</script>";
-    } else {
-        echo "Gagal daftar: " . mysqli_error($conn);
-    }
+// Tambahkan kode ini agar tidak Fatal Error di Vercel
+if (!$conn || $conn === true) {
+    echo "<script>
+            alert('Fitur Register hanya dapat digunakan di Localhost (XAMPP) karena database Cloud belum terhubung.');
+            window.location.href = 'login.php';
+          </script>";
+    exit();
 }
+
+// ... sisa kode kamu yang ada mysqli_real_escape_string dan lain-lain ...
 ?>
