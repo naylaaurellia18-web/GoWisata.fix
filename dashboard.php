@@ -89,7 +89,7 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['username'])) {
     <div class="welcome-banner text-center text-md-start">
         <div class="row align-items-center">
             <div class="col-md-8">
-                <h1 class="fw-bold mb-2">Halo, <?= htmlspecialchars($nama_tampil); ?>! 👋</h1>
+                <h1 class="fw-bold mb-2">Hallo Selamat datang, <?= htmlspecialchars($nama_tampil); ?>! 👋</h1>
                 <p class="lead mb-0">Temukan pengalaman liburan tak terlupakan dengan pilihan destinasi terbaik kami.</p>
             </div>
             <div class="col-md-4 text-center d-none d-md-block">
