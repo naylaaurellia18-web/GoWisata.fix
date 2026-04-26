@@ -1,0 +1,413 @@
+/* ===== 1. GLOBAL STYLES ===== */
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f6f9;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* ===== 2. NAVBAR CUSTOM (Gradasi Orange Cerah) ===== */
+.navbar-custom {
+    background: linear-gradient(90deg, #ff7a18 0%, #343a40 100%) !important;
+    padding: 15px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1030;
+}
+
+.navbar-custom .navbar-brand {
+    color: white !important;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.btn-login-nav {
+    background-color: white !important;
+    color: #ff7a18 !important;
+    border-radius: 20px;
+    padding: 7px 22px;
+    font-weight: 600;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-logout-nav {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border-radius: 20px;
+    padding: 7px 22px;
+    font-weight: 600;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.ms-auto a.btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* ===== 3. HERO SECTION (Tampilan Index Full Screen) ===== */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), 
+                url("https://images.unsplash.com/photo-1501785888041-af3ef285b470");
+    background-size: cover;
+    background-position: center;
+    /* PERUBAHAN DI SINI: Diubah ke scroll agar gambar ikut bergerak saat di-scroll */
+    background-attachment: scroll; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+}
+
+.hero-text {
+    font-size: 1.3rem;
+    margin-bottom: 35px;
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.5);
+}
+
+.btn-jelajah {
+    background: #ff7a18;
+    color: white !important;
+    padding: 18px 50px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    border: 3px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: 0.3s all ease-in-out;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-jelajah:hover {
+    background: white;
+    color: #ff7a18 !important;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(255, 122, 24, 0.4);
+}
+
+/* ===== 4. FITUR (Kotak-Kotak Modern di Index) ===== */
+.fitur {
+    padding: 90px 0;
+    background: #f8f9fa;
+}
+
+.fitur-card {
+    background: white;
+    padding: 45px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: 0.3s ease-in-out;
+    height: 100%;
+}
+
+.fitur-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 35px rgba(255, 122, 24, 0.15);
+}
+
+/* ===== 5. DESTINASI ===== */
+.container.py-5 {
+    padding-top: 100px !important;
+}
+
+.wisata-card {
+    border: none !important;
+    border-radius: 15px !important;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column;
+}
+
+.wisata-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.18) !important;
+    border: 1px solid rgba(255, 122, 24, 0.3) !important;
+}
+
+.wisata-card img.card-img-top {
+    width: 100%;
+    height: 220px !important; 
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 25px !important;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    text-align: center;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.harga {
+    color: #ff7a18;
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.pesan-btn {
+    background: linear-gradient(45deg, #ff7a18, #ff5400) !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 25px !important;
+    font-weight: 600;
+    width: 100%;
+    padding: 12px;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* ===== 6. FOOTER ===== */
+footer {
+    background: #343a40;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+/* ===== 7. STRUK/SUCCESS BOX ===== */
+.success-box {
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    margin-top: 50px;
+    padding: 40px;
+    text-align: center;
+}
+
+.check-icon {
+    font-size: 60px;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.receipt-detail {
+    text-align: left;
+    background: #f9f9f9;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 5px;
+}
+
+/* Styling Khusus Halaman Sukses Pembayaran */
+.receipt-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    animation: fadeIn 0.8s ease;
+    margin-top: 50px;
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.success-header {
+    background: #28a745; /* Hijau Sukses */
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.check-circle {
+    font-size: 70px;
+    margin-bottom: 15px;
+    animation: scaleCheck 0.5s cubic-bezier(.12,.44,.74,1.44);
+}
+
+@keyframes scaleCheck { 
+    0% { transform: scale(0); } 
+    100% { transform: scale(1); } 
+}
+
+.receipt-body { 
+    padding: 30px; 
+}
+
+.info-row { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 12px; 
+    border-bottom: 1px dashed #eee; 
+    padding-bottom: 8px; 
+}
+
+.total-pay { 
+    background: #f8f9fa; 
+    padding: 15px; 
+    border-radius: 10px; 
+    margin-top: 20px; 
+    border: 1px solid #eee;
+}
+
+.total-pay h2 {
+    color: #ff7a18; /* Warna Orange GoWisata */
+    margin: 0;
+    font-weight: 800;
+}
+
+.login-box-ungu { display: none !important; }
+
+/* ===== 8. STYLING LOGIN & REGISTER BOX (TAMBAHAN TERAKHIR) ===== */
+.auth-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Ganti URL gambar background jika ingin berbeda dengan Hero */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+}
+
+.auth-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.auth-card h3 {
+    color: #ff7a18;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.auth-card .form-control {
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+}
+
+.auth-card .btn-primary {
+    background: #ff7a18;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.auth-card .btn-primary:hover {
+    background: #e66a15;
+    transform: translateY(-2px);
+}
+
+.auth-card .btn-warning {
+    background: #343a40;
+    border: none;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+/* ===== 8. STYLING UNTUK MEMBUAT BOX KE TENGAH (TANPA UBAH DESAIN) ===== */
+
+/* Bungkus utama agar konten ada di tengah layar */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Memberikan background agar kartu putihnya terlihat kontras */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url("https://images.unsplash.com/photo-1501785888041-af3ef285b470");
+    background-size: cover;
+    background-position: center;
+}
+
+/* Memastikan kartu login/register tetap pada ukurannya tapi rapi di tengah */
+.auth-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px; /* Ukuran box supaya tidak terlalu lebar */
+}
+
+body {
+    background: #f4f6f9;
+}
+
+h2 {
+    color: #2c3e50;
+}
+
+.card {
+    border-radius: 20px;
+}
+
+.table th {
+    vertical-align: middle;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f2f2f2;
+}
+/* Merapikan Header GoWisata */
+.brand-subtitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: #2c3e50; /* Warna abu-abu gelap agar elegan */
+    margin-left: 5px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.brand-divider {
+    font-size: 20px;
+    color: #444;
+    margin: 0 8px;
+}
