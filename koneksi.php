@@ -7,8 +7,8 @@ $user = "root";
 $pass = "";
 $db   = "gowisata2";
 
-// Mencoba koneksi tapi TIDAK pakai exit() kalau gagal
+// Mencoba koneksi tapi TIDAK pakai exit() atau die()
 $conn = @mysqli_connect($host, $user, $pass, $db);
 
-// Kita tidak pakai IF (!$conn) EXIT di sini supaya file selanjutnya (login.php) tetap dibaca
+// Biarkan kosong di bawah sini agar login.php bisa tampil
 ?>
