@@ -1,7 +1,5 @@
-git add koneksi.php
-git commit -m "fix: disable mysqli exception for clean deploy"
-git push origin main<?php
-// JURUS AMPUH: Matikan pelaporan error mysqli sebagai exception
+<?php
+// Mencegah PHP melemparkan exception otomatis agar tidak Fatal Error
 mysqli_report(MYSQLI_REPORT_OFF);
 
 $host = "localhost";
@@ -9,7 +7,6 @@ $user = "root";
 $pass = "";
 $db   = "gowisata2";
 
-// Sekarang @ akan bekerja dengan benar
 $conn = @mysqli_connect($host, $user, $pass, $db);
 
 if (!$conn) {
