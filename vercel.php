@@ -5,13 +5,7 @@
     }
   },
   "routes": [
-    {
-      "src": "/(.*).php",
-      "dest": "/$1.php"
-    },
-    {
-      "src": "/",
-      "dest": "/index.html"
-    }
+    { "src": "/(.*).php", "dest": "/$1.php" },
+    { "src": "/", "dest": "/index.html" }
   ]
 }
