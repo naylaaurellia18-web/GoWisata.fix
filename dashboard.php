@@ -3,23 +3,15 @@ error_reporting(0);
 session_start();
 include 'koneksi.php';
 
+// Ambil nama dari session atau kasih default "Lia"
+$nama_tampil = (isset($_SESSION['username'])) ? $_SESSION['username'] : "Lia";
 
-if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
-    header("location:login.php");
-    exit();
-}
-
-// Ambil nama dari session, kalau kosong otomatis jadi "lia"
-$nama_tampil = isset($_SESSION['username']) ? $_SESSION['username'] : "lia";
-
-// Data angka agar dashboard tidak kosong
+// Data angka manual agar dashboard penuh
 $jumlah_destinasi = 9;
 $status_akun = "Aktif";
 $promo_spesial = 12;
 $tahun_operasi = 2026;
 ?>
-
-// pancingan update vercel
 
 <!DOCTYPE html>
 <html lang="id">
