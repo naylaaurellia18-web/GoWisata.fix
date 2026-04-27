@@ -1,18 +1,21 @@
 <?php
-error_reporting(0);
+error_reporting(0); // WAJIB ADA di baris paling atas setelah <?php
 session_start();
 include 'koneksi.php';
 
-// Ambil nama dari session atau kasih default "Lia"
-$nama_tampil = (isset($_SESSION['username'])) ? $_SESSION['username'] : "Lia";
+// Supaya variabel $nama_tampil nggak dibilang "Undefined"
+if(isset($_SESSION['username'])){
+    $nama_tampil = $_SESSION['username'];
+} else {
+    $nama_tampil = "Nayla"; 
+}
 
-// Data angka manual agar dashboard penuh
+// Tambahkan variabel statistik manual biar nggak kosong
 $jumlah_destinasi = 9;
 $status_akun = "Aktif";
 $promo_spesial = 12;
 $tahun_operasi = 2026;
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
