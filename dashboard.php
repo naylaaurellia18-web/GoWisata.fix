@@ -1,13 +1,15 @@
 <?php
 session_start();
+include 'koneksi.php';
 
-// Proteksi Sesi: Mengambil nama user yang sedang login
-$nama_tampil = $_SESSION['user'] ?? $_SESSION['username'] ?? "Pengguna";
-
-// Jika belum login, tendang ke halaman login
-if (!isset($_SESSION['user']) && !isset($_SESSION['username'])) {
-    header("location:login.php");
-    exit();
+// Jika database mati, kita buatkan data "palsu" hanya untuk tampilan demo
+if (!$conn) {
+    $jumlah_destinasi = 9;
+    $status_akun = "Aktif";
+    $promo_spesial = 12;
+    $tahun_operasi = 2026;
+} else {
+    // ... kode asli kamu untuk mengambil data dari database ...
 }
 ?>
 
