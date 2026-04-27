@@ -7,12 +7,11 @@ if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_NAME'] == 'localh
     $db   = "gowisata2";
     $port = 3306;
 } else {
-    // GANTI DENGAN DATA ASLI DARI TIDB
-    $host = "gateway01.ap-southeast-1.prod.aws.tidbcloud.com"; // Contoh host
-    $user = "xxxxxx.root"; // Contoh user
-    $pass = "password_kamu"; // Contoh password
-    $db   = "gowisata-db"; 
-    $port = 4000;
+    // DATA ASLI DARI TI DB CLOUD KAMU
+    $host = "gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com"; 
+    $user = "2jDX6rrVBhqHyCe.root";
+    $pass = "El1txkj4jwkvAQrE";
+    $db   = "gowisata-db";
 }
 // ... sisa kode di bawahnya ...
 
