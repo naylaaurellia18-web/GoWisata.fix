@@ -7,13 +7,14 @@ if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_NAME'] == 'localh
     $db   = "gowisata2";
     $port = 3306;
 } else {
-    // ISI DENGAN DATA DARI DASHBOARD TIDB CLOUD KAMU
-    $host = "masukkan-host-tidb-kamu"; 
-    $user = "masukkan-user-tidb-kamu";
-    $pass = "masukkan-password-tidb-kamu";
-    $db   = "test"; // Database default TiDB biasanya 'test'
+    // GANTI DENGAN DATA ASLI DARI TIDB
+    $host = "gateway01.ap-southeast-1.prod.aws.tidbcloud.com"; // Contoh host
+    $user = "xxxxxx.root"; // Contoh user
+    $pass = "password_kamu"; // Contoh password
+    $db   = "test"; 
     $port = 4000;
 }
+// ... sisa kode di bawahnya ...
 
 try {
     // Menambahkan variabel port khusus untuk TiDB
