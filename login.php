@@ -1,29 +1,20 @@
 <?php
 session_start();
-include 'koneksi.php';
-
-// Cek apakah tombol login diklik
+// Jangan panggil koneksi.php dulu di sini untuk menghindari error database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $user = $_POST['username'];
+    $pass = $_POST['password'];
 
-    // Syarat: Username & Password tidak boleh kosong
-    if (!empty($username) && !empty($password)) {
+    if (!empty($user) && !empty($pass)) {
         $_SESSION['status'] = "login";
-        $_SESSION['username'] = $username; 
-        
-        // Pakai JavaScript supaya pasti pindah halaman
-        echo "<script>
-                alert('Selamat datang, $username!');
-                window.location.href='dashboard.php';
-              </script>";
+        $_SESSION['username'] = $user;
+        echo "<script>alert('Selamat datang, $user!'); window.location.href='dashboard.php';</script>";
         exit();
     } else {
-        echo "<script>alert('Harap isi username dan password!');</script>";
+        echo "<script>alert('Isi dulu username & password bebas!');</script>";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>

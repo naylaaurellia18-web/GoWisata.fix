@@ -2,12 +2,12 @@
   "version": 2,
   "routes": [
     {
-      "src": "/",
-      "dest": "/index.html"
+      "src": "/(.*).php",
+      "dest": "/$1.php"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "src": "/",
+      "dest": "/index.html"
     }
   ]
 }
