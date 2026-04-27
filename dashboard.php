@@ -1,22 +1,20 @@
-error_reporting(0);<?php
+<?php
+error_reporting(0); // WAJIB: Supaya pesan orange "Warning/Deprecated" hilang total
 session_start();
 include 'koneksi.php';
 
-// Pastikan session ada, kalau tidak ada (belum login) lempar ke login
+// Cek status login
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
     header("location:login.php");
     exit();
 }
 
-// BUAT VARIABEL INI SUPAYA ERRORNYA HILANG
-$nama_tampil = isset($_SESSION['username']) ? $_SESSION['username'] : "User";
+// Menangkap nama dari login agar bisa tampil di "Hallo, selamat datang [nama]"
+$nama_tampil = $_SESSION['username']; 
 
-// --- Data Palsu untuk Demo (Opsional agar angka-angka muncul) ---
-$jumlah_destinasi = 9;
-$status_akun = "Aktif";
-$promo_spesial = 12;
-$tahun_operasi = 2026;
-?>
+// Jika variabel di kodinganmu bawah pake nama lain, samakan di sini:
+// Contoh: $nama_user = $nama_tampil;
+?>>
 
 <!DOCTYPE html>
 <html lang="id">

@@ -6,17 +6,16 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // --- PINTU RAHASIA UNTUK VERCEL ---
-    // Jika login pakai akun ini, langsung masuk dashboard tanpa cek database
-    if ($username == "admin" && $password == "admin123") {
+    // Cek apakah kolom tidak kosong
+    if (!empty($username) && !empty($password)) {
         $_SESSION['status'] = "login";
-        $_SESSION['username'] = "lia"; // Agar muncul "Hallo, selamat datang lia"
-        header("location:dashboard.php"); 
+        $_SESSION['username'] = $username; // Nama yang diketik akan tampil di Dashboard
+        
+        echo "<script>window.location.href='dashboard.php';</script>";
         exit();
+    } else {
+        echo "<script>alert('Silakan masukkan username dan password bebas!'); window.location.href='login.php';</script>";
     }
-    // ----------------------------------
-
-    // ... sisa kode login asli kamu ...
 }
 ?>
 

@@ -1,14 +1,16 @@
 <?php
-// Matikan laporan error agar tidak muncul pesan hitam-putih
+// Matikan laporan error supaya tampilan web tetap bersih di Vercel
 mysqli_report(MYSQLI_REPORT_OFF);
 
+// Biarkan localhost saja, Vercel akan otomatis menganggap koneksi ini gagal
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db   = "gowisata2";
 
-// Mencoba koneksi tapi TIDAK pakai exit() atau die()
+// Mencoba koneksi dengan tanda @ (artinya: jangan tampilkan error kalau gagal)
 $conn = @mysqli_connect($host, $user, $pass, $db);
 
-// Biarkan kosong di bawah sini agar login.php bisa tampil
+// PENTING: Jangan pakai exit() atau die() di sini
+// Biarkan script lanjut supaya login.php tetap bisa tampil
 ?>
