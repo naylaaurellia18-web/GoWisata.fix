@@ -1,20 +1,24 @@
 <?php
-error_reporting(0); // WAJIB: Supaya pesan orange "Warning/Deprecated" hilang total
+error_reporting(0); // Membungkam semua warning orange agar dashboard bersih
 session_start();
 include 'koneksi.php';
 
-// Cek status login
+// Proteksi halaman: kalau belum login, tendang balik ke login.php
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
     header("location:login.php");
     exit();
 }
 
-// Menangkap nama dari login agar bisa tampil di "Hallo, selamat datang [nama]"
-$nama_tampil = $_SESSION['username']; 
+// Ambil nama dari session (yang tadi kamu ketik saat login)
+$nama_tampil = isset($_SESSION['username']) ? $_SESSION['username'] : "User";
 
-// Jika variabel di kodinganmu bawah pake nama lain, samakan di sini:
-// Contoh: $nama_user = $nama_tampil;
-?>>
+// --- DATA STATISTIK PALSU UNTUK DEMO ---
+// Supaya kotak-kotak di dashboard ada isinya dan tidak kosong/error
+$jumlah_destinasi = 9;
+$status_akun = "Aktif";
+$promo_spesial = 12;
+$tahun_operasi = 2026;
+?>
 
 <!DOCTYPE html>
 <html lang="id">
