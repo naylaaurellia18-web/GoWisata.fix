@@ -1,16 +1,21 @@
-<?php
+error_reporting(0);<?php
 session_start();
 include 'koneksi.php';
 
-// Jika database mati, kita buatkan data "palsu" hanya untuk tampilan demo
-if (!$conn) {
-    $jumlah_destinasi = 9;
-    $status_akun = "Aktif";
-    $promo_spesial = 12;
-    $tahun_operasi = 2026;
-} else {
-    // ... kode asli kamu untuk mengambil data dari database ...
+// Pastikan session ada, kalau tidak ada (belum login) lempar ke login
+if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
+    header("location:login.php");
+    exit();
 }
+
+// BUAT VARIABEL INI SUPAYA ERRORNYA HILANG
+$nama_tampil = isset($_SESSION['username']) ? $_SESSION['username'] : "User";
+
+// --- Data Palsu untuk Demo (Opsional agar angka-angka muncul) ---
+$jumlah_destinasi = 9;
+$status_akun = "Aktif";
+$promo_spesial = 12;
+$tahun_operasi = 2026;
 ?>
 
 <!DOCTYPE html>
