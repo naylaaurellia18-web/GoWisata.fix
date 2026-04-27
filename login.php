@@ -111,5 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 </script>
 
+echo "<script>window.location.href='dashboard.php';</script>";
+
 </body>
 </html>

@@ -1,20 +1,26 @@
 <?php
-error_reporting(0);
+error_reporting(0); // Menghilangkan semua error orange
 session_start();
 include 'koneksi.php';
 
-// KITA MATIKAN DULU PROTEKSINYA AGAR TIDAK REDIRECT TERUS
-// if (!isset($_SESSION['status'])) { ... } <--- Abaikan/Hapus bagian ini dulu
+// HAPUS ATAU KOMENTAR BAGIAN INI AGAR TIDAK MUTER-MUTER:
+/*
+if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
+    header("location:login.php");
+    exit();
+}
+*/
 
-// Ambil nama dari session, kalau kosong kasih nama "Lia"
-$nama_tampil = (isset($_SESSION['username']) && !empty($_SESSION['username'])) ? $_SESSION['username'] : "Lia";
+// Ambil nama dari session, kalau kosong otomatis jadi "lia"
+$nama_tampil = isset($_SESSION['username']) ? $_SESSION['username'] : "lia";
 
-// Data statistik agar dashboard tidak kosong
+// Data angka agar dashboard tidak kosong
 $jumlah_destinasi = 9;
 $status_akun = "Aktif";
 $promo_spesial = 12;
 $tahun_operasi = 2026;
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
