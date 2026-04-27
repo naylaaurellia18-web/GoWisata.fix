@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <button type="submit" name="login" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">MASUK KE DASHBOARD</button>
             <div class="text-center mt-3">
-                <a href="index.html class="text-decoration-none small text-muted">← Kembali ke Beranda</a>
+                <a href="index.html" class="text-decoration-none small text-muted">← Kembali ke Beranda</a>
             </div>
         </form>
 
@@ -100,8 +100,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.getElementById('btnRegTab').classList.remove('btn-primary', 'text-white');
     }
 </script>
-
-echo "<script>window.location.href='dashboard.php';</script>";
-
 </body>
 </html>
