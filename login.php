@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Jangan panggil koneksi.php dulu di sini untuk menghindari error database
+// Jangan panggil koneksi.php dulu supaya tidak error database di cloud
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['username'];
     $pass = $_POST['password'];
@@ -8,10 +8,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($user) && !empty($pass)) {
         $_SESSION['status'] = "login";
         $_SESSION['username'] = $user;
-        echo "<script>alert('Selamat datang, $user!'); window.location.href='dashboard.php';</script>";
+        // Menggunakan redirect JS agar lebih aman di Vercel
+        echo "<script>window.location.href='dashboard.php';</script>";
         exit();
-    } else {
-        echo "<script>alert('Isi dulu username & password bebas!');</script>";
     }
 }
 ?>

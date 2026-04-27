@@ -1,17 +1,16 @@
 <?php
-error_reporting(0); // MEMBUNGKAM SEMUA ERROR ORANGE
+error_reporting(0); 
 session_start();
 
-// Bypass proteksi: Jika tidak ada session, kita buatkan saja secara otomatis 
-// agar tidak terjadi "Too Many Redirects"
+// Paksa status login agar tidak 'Too Many Redirects'
 if (!isset($_SESSION['status'])) {
     $_SESSION['status'] = "login";
-    $_SESSION['username'] = "Lia";
+    $_SESSION['username'] = "Lia"; 
 }
 
 $nama_tampil = $_SESSION['username'];
 
-// Variabel statistik manual agar tidak kosong/error
+// Variabel statistik manual biar dashboard terlihat penuh saat presentasi
 $jumlah_destinasi = 9;
 $status_akun = "Aktif";
 $promo_spesial = 12;
