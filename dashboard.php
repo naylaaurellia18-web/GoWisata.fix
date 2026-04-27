@@ -15,18 +15,6 @@ $status_akun = "Aktif";
 $promo_spesial = 12;
 $tahun_operasi = 2026;
 ?>
-
-// Ambil nama dari session (yang tadi kamu ketik saat login)
-$nama_tampil = isset($_SESSION['username']) ? $_SESSION['username'] : "User";
-
-// --- DATA STATISTIK PALSU UNTUK DEMO ---
-// Supaya kotak-kotak di dashboard ada isinya dan tidak kosong/error
-$jumlah_destinasi = 9;
-$status_akun = "Aktif";
-$promo_spesial = 12;
-$tahun_operasi = 2026;
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
