@@ -1,6 +1,5 @@
 <?php
 session_start();
-// Jangan panggil koneksi.php dulu supaya tidak error database di cloud
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['username'];
     $pass = $_POST['password'];
@@ -8,7 +7,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($user) && !empty($pass)) {
         $_SESSION['status'] = "login";
         $_SESSION['username'] = $user;
-        // Menggunakan redirect JS agar lebih aman di Vercel
         echo "<script>window.location.href='dashboard.php';</script>";
         exit();
     }
@@ -29,19 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card card-login p-4" style="width:400px;">
         <div class="text-center mb-4">
             <h2 class="fw-bold">🌍 GoWisata</h2>
             <p class="text-muted">Masuk untuk menjelajahi Indonesia</p>
         </div>
-        
         <div class="d-flex justify-content-center gap-2 mb-4">
             <button class="btn btn-sm px-4 btn-primary text-white" id="btnLoginTab" onclick="showLogin()">Login</button>
             <button class="btn btn-sm px-4 btn-outline-warning" id="btnRegTab" onclick="showRegister()">Register</button>
         </div>
-
         <form id="loginForm" method="POST">
             <div class="mb-3">
                 <label class="form-label fw-semibold">Username</label>
@@ -56,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a href="index.html" class="text-decoration-none small text-muted">← Kembali ke Beranda</a>
             </div>
         </form>
-
         <form id="registerForm" action="proses_register.php" method="POST" style="display:none;">
             <div class="mb-3">
                 <label class="form-label fw-semibold">Username</label>
@@ -70,34 +64,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label class="form-label fw-semibold">Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Password Baru" required>
             </div>
-            <div class="mb-3">
-                <label class="form-label fw-semibold">Daftar Sebagai</label>
-                <select name="role" class="form-select">
-                    <option value="user">Pengunjung (User)</option>
-                    <option value="admin">Administrator</option>
-                </select>
-            </div>
             <button type="submit" name="register" class="btn btn-warning w-100 text-white fw-bold py-2 shadow-sm">DAFTAR AKUN</button>
         </form>
     </div>
 </div>
-
 <script>
     function showRegister() {
         document.getElementById('loginForm').style.display = 'none';
         document.getElementById('registerForm').style.display = 'block';
-        document.getElementById('btnRegTab').classList.add('btn-primary', 'text-white');
-        document.getElementById('btnRegTab').classList.remove('btn-outline-warning');
-        document.getElementById('btnLoginTab').classList.add('btn-outline-warning');
-        document.getElementById('btnLoginTab').classList.remove('btn-primary', 'text-white');
     }
     function showLogin() {
         document.getElementById('loginForm').style.display = 'block';
         document.getElementById('registerForm').style.display = 'none';
-        document.getElementById('btnLoginTab').classList.add('btn-primary', 'text-white');
-        document.getElementById('btnLoginTab').classList.remove('btn-outline-warning');
-        document.getElementById('btnRegTab').classList.add('btn-outline-warning');
-        document.getElementById('btnRegTab').classList.remove('btn-primary', 'text-white');
     }
 </script>
 </body>
