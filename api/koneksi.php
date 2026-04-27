@@ -11,7 +11,7 @@ if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_NAME'] == 'localh
     $host = "gateway01.ap-southeast-1.prod.aws.tidbcloud.com"; // Contoh host
     $user = "xxxxxx.root"; // Contoh user
     $pass = "password_kamu"; // Contoh password
-    $db   = "test"; 
+    $db   = "gowisata-db"; 
     $port = 4000;
 }
 // ... sisa kode di bawahnya ...
