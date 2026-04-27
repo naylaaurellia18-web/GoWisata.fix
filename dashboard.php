@@ -5,7 +5,7 @@ include 'koneksi.php';
 
 // Proteksi halaman: kalau belum login, tendang balik ke login.php
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
-    header("location:login.php");
+    header("location:dashboard.php");
     exit();
 }
 
