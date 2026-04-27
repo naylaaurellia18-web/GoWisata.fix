@@ -19,6 +19,8 @@ $promo_spesial = 12;
 $tahun_operasi = 2026;
 ?>
 
+// pancingan update vercel
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
