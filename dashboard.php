@@ -1,15 +1,13 @@
 <?php
-error_reporting(0); // Menghilangkan semua error orange
+error_reporting(0);
 session_start();
 include 'koneksi.php';
 
-// HAPUS ATAU KOMENTAR BAGIAN INI AGAR TIDAK MUTER-MUTER:
-/*
+
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
     header("location:login.php");
     exit();
 }
-*/
 
 // Ambil nama dari session, kalau kosong otomatis jadi "lia"
 $nama_tampil = isset($_SESSION['username']) ? $_SESSION['username'] : "lia";
