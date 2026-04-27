@@ -9,6 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $user;
         echo "<script>window.location.href='dashboard.php';</script>";
         exit();
+        if (!$conn) {
+    echo "Maaf, server sedang gangguan (Database tidak terhubung).";
+} else {
+    // Jalankan query login di sini
+}
     }
 }
 ?>
