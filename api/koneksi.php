@@ -2,7 +2,7 @@
 $host = "gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com"; 
 $user = "2TfJGdFNKpGMfMM.root";
 $pass = "El1txkj4jwkvAQrE";
-$db   = "go-wisata";
+$db   = "gowisata2";
 $port = 4000;
 
 // Membuat koneksi dengan dukungan SSL (Wajib untuk TiDB Cloud)
