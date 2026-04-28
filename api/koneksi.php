@@ -9,9 +9,9 @@ if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_NAME'] == 'localh
 } else {
     // DATA ASLI DARI TI DB CLOUD KAMU
     $host = "gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com"; 
-    $user = "2jDX6rrVBhqHyCe.root";
-    $pass = "El1txkj4jwkvAQrE";
-    $db   = "gowisata-db";
+    $user = "2TfJGdFNKpGMfMM.root";
+    $pass = "XN6skrhyza9SU2zX";
+    $db   = "gowisata2";
     $port = 4000; // <-- INI YANG DITAMBAHKAN AGAR TIDAK ERROR DI VERCEL
 }
 
