@@ -1,25 +1,25 @@
 <?php
-// Deteksi apakah sedang di localhost atau Vercel
-if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_NAME'] == 'localhost') {
-    $host = "localhost";
-    $user = "root";
-    $pass = "";
-    $db   = "gowisata2";
-    $port = 3306;
-} else {
-    // DATA ASLI DARI TI DB CLOUD KAMU
-    $host = "gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com"; 
-    $user = "2TfJGdFNKpGMfMM.root";
-    $pass = "El1txkj4jwkvAQrE";
-    $db   = "gowisata2";
-    $port = 4000; // <-- INI YANG DITAMBAHKAN AGAR TIDAK ERROR DI VERCEL
+// Gunakan environment variable dari Vercel
+$host = getenv('TIDB_HOST') ?: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+$port = getenv('TIDB_PORT') ?: '4000';
+$user = getenv('TIDB_USER') ?: '2TfJGdFNKpGMfMM.root';
+$pass = getenv('TIDB_PASSWORD') ?: '';
+$db   = getenv('TIDB_DATABASE') ?: 'gowisata2';
+
+// Aktifkan pelaporan error
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+// Buat koneksi dengan port
+$conn = new mysqli($host, $user, $pass, $db, (int)$port);
+
+// Cek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
 }
 
-try {
-    // Menambahkan variabel port khusus untuk TiDB
-    $conn = mysqli_connect($host, $user, $pass, $db, $port);
-} catch (Exception $e) {
-    error_log("Koneksi Gagal: " . $e->getMessage());
-    $conn = false;
-}
+// Wajib: Aktifkan SSL untuk TiDB Cloud
+$conn->ssl_set(NULL, NULL, NULL, NULL, NULL);
+$conn->options(MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
+
+echo "Koneksi berhasil!";
 ?>
