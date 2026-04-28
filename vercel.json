@@ -1,20 +1,24 @@
 {
   "functions": {
-    "api/*.php": {
+    "*.php": {
       "runtime": "vercel-php@0.6.0"
     },
-    "*.php": {
+    "api/*.php": {
       "runtime": "vercel-php@0.6.0"
     }
   },
   "cleanUrls": true,
   "routes": [
     {
-      "src": "/login",
+      "src": "/login.php",
       "dest": "/login.php"
     },
     {
       "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
