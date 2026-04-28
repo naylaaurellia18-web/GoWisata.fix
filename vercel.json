@@ -9,7 +9,17 @@
     }
   },
   "routes": [
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/login.php",
+      "dest": "/login.php"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
   ]
 }
