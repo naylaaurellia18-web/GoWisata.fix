@@ -2,9 +2,13 @@
 include 'koneksi.php';
 session_start();
 
+// Validasi tambahan: Pastikan koneksi tersedia
+if (!$conn) {
+    die("Error: Koneksi database tidak ditemukan. Periksa file koneksi.php");
+}
+
 if (isset($_POST['login'])) {
-    // Pastikan variabel $conn di koneksi.php sudah benar
-    // Jika masih error di baris ini, cek file koneksi.php kamu
+    // Sekarang $conn dipastikan bukan 'false'
     $user = mysqli_real_escape_string($conn, $_POST['username']);
     $pass = $_POST['password'];
 
@@ -16,16 +20,13 @@ if (isset($_POST['login'])) {
 
     if (mysqli_num_rows($query) > 0) {
         $data = mysqli_fetch_assoc($query);
-        
-        // Set session sesuai kebutuhan dashboard
-        $_SESSION['status']   = "login";
-        $_SESSION['role']     = $data['role'];
-        $_SESSION['username'] = $data['username']; // Digunakan oleh dashboard
+        $_SESSION['status'] = "login";
+        $_SESSION['role'] = $data['role'];
+        $_SESSION['username'] = $data['username'];
         
         if ($data['role'] == "admin") {
             header("location:admin_dashboard.php");
         } else {
-            // Diarahkan ke dashboard.php, bukan index.html agar data session terbaca
             header("location:dashboard.php");
         }
         exit();
