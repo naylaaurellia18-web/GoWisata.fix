@@ -1,13 +1,21 @@
 {
   "functions": {
-    "login.php": {
+    "api/*.php": {
       "runtime": "vercel-php@0.6.0"
     }
   },
   "routes": [
     {
       "src": "/login.php",
-      "dest": "/login.php"
+      "dest": "/api/login.php"
+    },
+    {
+      "src": "/prosesLogin.php",
+      "dest": "/api/prosesLogin.php"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
       "handle": "filesystem"
