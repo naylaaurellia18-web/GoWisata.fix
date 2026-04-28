@@ -1,8 +1,8 @@
 <?php
 // Gunakan environment variable dari Vercel
-$host = getenv('TIDB_HOST') ?: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+$host = getenv('TIDB_HOST') ?: 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com';
 $port = getenv('TIDB_PORT') ?: '4000';
-$user = getenv('TIDB_USER') ?: '2TfJGdFNKpGMfMM.root';
+$user = getenv('TIDB_USER') ?: 'root';
 $pass = getenv('TIDB_PASSWORD') ?: '';
 $db   = getenv('TIDB_DATABASE') ?: 'gowisata2';
 
