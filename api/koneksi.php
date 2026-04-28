@@ -12,8 +12,8 @@ if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_NAME'] == 'localh
     $user = "2jDX6rrVBhqHyCe.root";
     $pass = "El1txkj4jwkvAQrE";
     $db   = "gowisata-db";
+    $port = 4000; // <-- INI YANG DITAMBAHKAN AGAR TIDAK ERROR DI VERCEL
 }
-// ... sisa kode di bawahnya ...
 
 try {
     // Menambahkan variabel port khusus untuk TiDB
