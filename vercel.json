@@ -1,28 +1,16 @@
 {
+  "version": 2,
   "functions": {
-    "api/*.php": {
+    "api/**/*.php": {
+      "runtime": "vercel-php@0.6.0"
+    },
+    "*.php": {
       "runtime": "vercel-php@0.6.0"
     }
   },
   "routes": [
-    {
-      "src": "/login.php",
-      "dest": "/api/login.php"
-    },
-    {
-      "src": "/prosesLogin.php",
-      "dest": "/api/prosesLogin.php"
-    },
-    {
-      "src": "/koneksi.php",
-      "dest": "/api/koneksi.php"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/login.php", "dest": "/login.php" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
