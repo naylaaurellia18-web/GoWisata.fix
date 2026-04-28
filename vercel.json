@@ -14,8 +14,8 @@
       "dest": "/api/prosesLogin.php"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/koneksi.php",
+      "dest": "/api/koneksi.php"
     },
     {
       "handle": "filesystem"
