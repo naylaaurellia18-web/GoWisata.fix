@@ -2,12 +2,6 @@
 session_start();
 include 'koneksi.php';
 
-// Cek login
-if(!isset($_SESSION['user'])){
-    header("Location: login.php");
-    exit();
-}
-
 // Ambil ID Invoice dari URL
 $id_invoice = $_GET['id'] ?? '';
 
@@ -15,9 +9,12 @@ if (empty($id_invoice)) {
     die("Data tiket tidak ditemukan.");
 }
 
+// PERBAIKAN: Gunakan variabel koneksi yang fleksibel seperti di riwayat_pesanan.php
+$db = isset($conn) ? $conn : $koneksi;
+
 // Ambil data transaksi berdasarkan invoice
 $sql = "SELECT * FROM riwayat_transaksi WHERE no_invoice = '$id_invoice'";
-$query = mysqli_query($conn, $sql);
+$query = mysqli_query($db, $sql);
 $data = mysqli_fetch_assoc($query);
 
 if (!$data) {
