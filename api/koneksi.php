@@ -16,13 +16,18 @@ if (!$ok) {
 // Alias agar file lain yang pakai $koneksi tetap jalan
 $koneksi = $conn;
 
-// Buat tabel session otomatis jika belum ada
+// ============================================================
+// BUG FIX UTAMA (ERROR LOGIN):
+// TiDB/MySQL TIDAK mengizinkan DEFAULT value ('') pada kolom
+// bertipe LONGTEXT/BLOB. Ini penyebab Fatal Error saat login!
+// Solusi: hapus "DEFAULT ''" dari definisi kolom session_data.
+// ============================================================
 mysqli_query($conn,
     "CREATE TABLE IF NOT EXISTS php_sessions (
-        session_id   VARCHAR(128) NOT NULL PRIMARY KEY,
-        session_data LONGTEXT     NOT NULL '',
-        session_expiry BIGINT     NOT NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+        session_id     VARCHAR(128) NOT NULL PRIMARY KEY,
+        session_data   LONGTEXT     NOT NULL,
+        session_expiry BIGINT       NOT NULL
+    )"
 );
 
 // ============================================================
@@ -47,7 +52,8 @@ class DbSessionHandler implements SessionHandlerInterface {
              WHERE session_id = '$id' AND session_expiry > " . time()
         );
         if ($result && $row = mysqli_fetch_assoc($result)) {
-            return (string)$row['session_data'];
+            // FIX: pakai ?? '' untuk menghindari null jika kolom kosong
+            return (string)($row['session_data'] ?? '');
         }
         return '';
     }
