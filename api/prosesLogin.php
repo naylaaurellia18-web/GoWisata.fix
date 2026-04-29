@@ -1,44 +1,46 @@
 <?php
-include 'koneksi.php';
 session_start();
+include 'koneksi.php';
 
-// Tambahkan kode ini untuk menghindari Fatal Error jika koneksi gagal
-if (!$conn) {
+// Ubah pengecekan dari $conn menjadi $pdo
+if (!isset($pdo)) {
     echo "<script>
-            alert('Gagal login: Database Cloud belum terhubung. Silakan coba di Localhost.');
+            alert('Gagal login: Database Cloud belum terhubung. Periksa file koneksi.php.');
             window.location.href = 'login.php';
           </script>";
     exit();
 }
 
 if (isset($_POST['login'])) {
-    // Memastikan koneksi $conn tersedia dari koneksi.php
-    $user = mysqli_real_escape_string($conn, $_POST['username']);
-    $pass = $_POST['password']; // Jika password di database di-hash, gunakan password_verify nantinya
+    $user = $_POST['username'];
+    $pass = $_POST['password'];
 
-    // Menggunakan tabel 'pengguna'
-    $query = mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$user' AND password='$pass'");
-    
-    if (!$query) {
-        die("Query gagal: " . mysqli_error($conn));
-    }
+    // Menggunakan PDO dengan Prepared Statement (Lebih aman dari serangan hacker/SQL Injection)
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM pengguna WHERE username = :username AND password = :password");
+        $stmt->bindParam(':username', $user);
+        $stmt->bindParam(':password', $pass);
+        $stmt->execute();
 
-    if (mysqli_num_rows($query) > 0) {
-        $data = mysqli_fetch_assoc($query);
-        
-        // Set session sesuai kebutuhan dashboard.php kamu
-        $_SESSION['status']   = "login";
-        $_SESSION['role']     = $data['role'];
-        $_SESSION['username'] = $data['username']; 
-        
-        if ($data['role'] == "admin") {
-            header("location:admin_dashboard.php");
+        // Jika data ditemukan
+        if ($stmt->rowCount() > 0) {
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            $_SESSION['status']   = "login";
+            $_SESSION['role']     = $data['role'];
+            $_SESSION['username'] = $data['username']; 
+            
+            if ($data['role'] == "admin") {
+                header("location:admin_dashboard.php");
+            } else {
+                header("location:dashboard.php");
+            }
+            exit();
         } else {
-            header("location:dashboard.php");
+            echo "<script>alert('Username atau Password Salah!'); window.location.href='index.html';</script>";
         }
-        exit();
-    } else {
-        echo "<script>alert('Username atau Password Salah!'); window.location.href='index.html';</script>";
+    } catch (PDOException $e) {
+        die("Query error: " . $e->getMessage());
     }
 }
 ?>
