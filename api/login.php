@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
             <button class="btn btn-sm px-4 btn-outline-warning" id="btnRegTab" onclick="showRegister()">Register</button>
         </div>
 
-        <form id="loginForm" action="prosesLogin.php" method="POST">
+        <form id="loginForm" action="" method="POST">
             <div class="mb-3">
                 <label class="form-label fw-semibold">Username</label>
                 <input type="text" name="username" class="form-control" placeholder="Masukkan username" required>

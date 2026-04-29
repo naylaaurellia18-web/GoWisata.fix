@@ -2,6 +2,15 @@
 include 'koneksi.php';
 session_start();
 
+// Tambahkan kode ini untuk menghindari Fatal Error jika koneksi gagal
+if (!$conn) {
+    echo "<script>
+            alert('Gagal login: Database Cloud belum terhubung. Silakan coba di Localhost.');
+            window.location.href = 'login.php';
+          </script>";
+    exit();
+}
+
 if (isset($_POST['login'])) {
     // Memastikan koneksi $conn tersedia dari koneksi.php
     $user = mysqli_real_escape_string($conn, $_POST['username']);
