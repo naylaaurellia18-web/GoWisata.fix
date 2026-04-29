@@ -13,8 +13,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== "admin") {
 // Proses Hapus User
 if (isset($_GET['hapus'])) {
     $id_hapus = mysqli_real_escape_string($db, $_GET['hapus']);
-    // Cek kolom ID yang benar (id atau id_pengguna)
-    mysqli_query($db, "DELETE FROM pengguna WHERE (id_pengguna='$id_hapus' OR id='$id_hapus') AND role='user'");
+    // BUG FIX: Kolom 'id_pengguna' tidak ada di tabel → Error "Unknown column"
+    // Query sebelumnya memakai OR id_pengguna yang langsung throw exception di TiDB
+    // Perbaikan: cukup pakai kolom 'id' saja
+    mysqli_query($db, "DELETE FROM pengguna WHERE id='$id_hapus' AND role='user'");
     header("location:kelola_user.php");
     exit();
 }

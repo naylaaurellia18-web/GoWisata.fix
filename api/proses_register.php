@@ -32,9 +32,15 @@ if (isset($_POST['register'])) {
         exit();
     }
 
-    // Simpan user baru ke database
-    $sql = "INSERT INTO pengguna (username, email, password, role) 
-            VALUES ('$username', '$email', '$password', '$role')";
+    // BUG FIX: Kolom 'id' di tabel pengguna tidak AUTO_INCREMENT → generate manual
+    // Ambil MAX(id) + 1 agar tidak bentrok dengan data yang sudah ada
+    $res_max = mysqli_query($conn, "SELECT COALESCE(MAX(id), 0) + 1 AS next_id FROM pengguna");
+    $row_max = mysqli_fetch_assoc($res_max);
+    $new_id  = (int)$row_max['next_id'];
+
+    // Simpan user baru ke database (sertakan id karena tidak AUTO_INCREMENT)
+    $sql = "INSERT INTO pengguna (id, username, email, password, role) 
+            VALUES ('$new_id', '$username', '$email', '$password', '$role')";
 
     if (mysqli_query($conn, $sql)) {
         echo "<script>

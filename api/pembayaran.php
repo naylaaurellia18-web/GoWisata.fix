@@ -31,8 +31,13 @@ if ($total > 0 && isset($conn)) {
     $wisata_safe = mysqli_real_escape_string($conn, $wisata);
     $total_safe  = (int) $total;
     
-    $query = "INSERT INTO riwayat_transaksi (no_invoice, username, destinasi, tanggal, total_bayar, status) 
-              VALUES ('$no_invoice', '$nama_safe', '$wisata_safe', '$tanggal', '$total_safe', '$status')";
+    // BUG FIX: Kolom 'id_transaksi' tidak AUTO_INCREMENT → generate manual
+    $res_max_t = mysqli_query($conn, "SELECT COALESCE(MAX(id_transaksi), 0) + 1 AS next_id FROM riwayat_transaksi");
+    $row_max_t = mysqli_fetch_assoc($res_max_t);
+    $new_id_t  = (int)$row_max_t['next_id'];
+
+    $query = "INSERT INTO riwayat_transaksi (id_transaksi, no_invoice, username, destinasi, tanggal, total_bayar, status) 
+              VALUES ('$new_id_t', '$no_invoice', '$nama_safe', '$wisata_safe', '$tanggal', '$total_safe', '$status')";
     
     if (mysqli_query($conn, $query)) {
         $simpan_sukses = true;
