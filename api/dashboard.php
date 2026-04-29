@@ -3,11 +3,6 @@
 include 'koneksi.php';
 session_start();
 
-// BUG #7 FIX: Sebelumnya ada kode yang MEMAKSA session login meskipun user belum login:
-//   $_SESSION['status'] = "login";
-//   $_SESSION['username'] = "Lia";
-// Ini sangat berbahaya karena siapa pun bisa buka dashboard tanpa login!
-// Sekarang diganti dengan pengecekan yang benar.
 $username_login = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
 
 if (!$username_login || !isset($_SESSION['status'])) {
@@ -28,49 +23,20 @@ $nama_tampil = $username_login;
     <style>
         body { background-color: #f0f2f5; font-family: 'Inter', sans-serif; }
         .navbar-custom { background-color: #f37021; padding: 12px 0; }
-        
         .welcome-banner {
             background: linear-gradient(45deg, #f37021, #ff9f43);
-            border-radius: 20px;
-            color: white;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 20px rgba(243, 112, 33, 0.2);
+            border-radius: 20px; color: white; padding: 40px;
+            margin-bottom: 30px; box-shadow: 0 10px 20px rgba(243,112,33,0.2);
         }
-
-        .stat-card {
-            border: none;
-            border-radius: 12px;
-            transition: 0.3s;
-            background: white;
-        }
+        .stat-card { border: none; border-radius: 12px; transition: 0.3s; background: white; }
         .stat-card:hover { transform: translateY(-5px); }
-        
-        .menu-card {
-            border: none;
-            border-radius: 20px;
-            transition: 0.4s;
-            background: white;
-            cursor: pointer;
-        }
-        .menu-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
+        .menu-card { border: none; border-radius: 20px; transition: 0.4s; background: white; cursor: pointer; }
+        .menu-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         .icon-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 1.5rem;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 15px; font-size: 1.5rem;
         }
-
-        .btn-go { background-color: #f37021; color: white; border-radius: 50px; font-weight: 600; }
-        .btn-go:hover { background-color: #d65a10; color: white; }
     </style>
 </head>
 <body>
@@ -114,7 +80,6 @@ $nama_tampil = $username_login;
                 </div>
             </div>
         </div>
-
         <div class="col-md-3 col-sm-6">
             <div class="card stat-card shadow-sm h-100 border-start border-success border-4">
                 <div class="card-body d-flex align-items-center">
@@ -122,13 +87,12 @@ $nama_tampil = $username_login;
                         <i class="bi bi-shield-check fs-3"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h4 class="fw-bold mb-0 text-success" style="font-size: 1.1rem;">Aktif</h4>
+                        <h4 class="fw-bold mb-0 text-success" style="font-size:1.1rem;">Aktif</h4>
                         <p class="text-muted small mb-0">Status Akun</p>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="col-md-3 col-sm-6">
             <div class="card stat-card shadow-sm h-100 border-start border-warning border-4">
                 <div class="card-body d-flex align-items-center">
@@ -142,7 +106,6 @@ $nama_tampil = $username_login;
                 </div>
             </div>
         </div>
-
         <div class="col-md-3 col-sm-6">
             <div class="card stat-card shadow-sm h-100 border-start border-danger border-4">
                 <div class="card-body d-flex align-items-center">
@@ -171,7 +134,9 @@ $nama_tampil = $username_login;
             </div>
         </div>
 
-        <div class="col-md-4" onclick="window.location.href='header.php'">
+        <!-- BUG FIX #1: Sebelumnya onclick link ke 'header.php' (halaman tabel statis biasa)
+             Seharusnya link ke 'statistik_bps.php' (halaman statistik lengkap + chart) -->
+        <div class="col-md-4" onclick="window.location.href='statistik_bps.php'">
             <div class="card menu-card p-4 h-100 shadow-sm">
                 <div class="icon-circle bg-success bg-opacity-10 text-success">
                     <i class="bi bi-graph-up-arrow"></i>
@@ -196,7 +161,7 @@ $nama_tampil = $username_login;
 
     <div class="row mt-5 pt-2">
         <div class="col-md-12">
-            <div class="card border-0 shadow-sm p-4" style="border-radius: 20px; background-color: #ffffff;">
+            <div class="card border-0 shadow-sm p-4" style="border-radius:20px; background-color:#ffffff;">
                 <div class="d-flex align-items-center">
                     <i class="bi bi-info-circle-fill text-primary fs-2 me-3"></i>
                     <div>
@@ -212,7 +177,6 @@ $nama_tampil = $username_login;
 <footer class="text-center py-4">
     <p class="text-muted small">&copy; 2026 GoWisata - Aplikasi Manajemen Tiket Wisata</p>
 </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
