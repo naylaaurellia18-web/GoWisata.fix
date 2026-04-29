@@ -1,3 +1,11 @@
+<?php
+// SECURITY FIX: Halaman statistik tidak boleh diakses tanpa login.
+session_start();
+if (!isset($_SESSION['status']) || $_SESSION['status'] !== "login") {
+    header("location:login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>

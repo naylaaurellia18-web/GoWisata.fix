@@ -17,7 +17,10 @@ if (isset($_POST['register'])) {
     $username = mysqli_real_escape_string($conn, trim($_POST['username']));
     $email    = mysqli_real_escape_string($conn, trim($_POST['email']));
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $role     = ($_POST['role'] === 'admin') ? 'admin' : 'user';
+    // SECURITY FIX: Role TIDAK BOLEH diambil dari $_POST karena bisa dimanipulasi.
+    // Meskipun form login.php sudah dikunci ke 'user', hacker bisa kirim POST
+    // manual dengan role=admin. Satu-satunya cara aman: hardcode 'user' di sini.
+    $role = 'user';
 
     // Validasi: username tidak boleh kosong
     if (empty($username) || empty($password)) {

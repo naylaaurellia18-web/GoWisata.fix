@@ -11,9 +11,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== "admin") {
 
 // --- LOGIKA HAPUS DESTINASI ---
 if (isset($_GET['hapus'])) {
-    $id = $_GET['hapus'];
+    // SQL INJECTION FIX: Sebelumnya $_GET['hapus'] langsung dimasukkan ke query
+    // tanpa di-escape sama sekali — ini celah SQL Injection yang berbahaya.
+    $id = mysqli_real_escape_string($db, $_GET['hapus']);
     mysqli_query($db, "DELETE FROM destinasi WHERE id_destinasi = '$id'");
     header("location:kelola_destinasi.php");
+    exit();
 }
 
 // --- AMBIL DATA DESTINASI ---

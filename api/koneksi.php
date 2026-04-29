@@ -17,10 +17,13 @@ if (!$ok) {
 $koneksi = $conn;
 
 // Buat tabel session otomatis jika belum ada
+// BUG #FIX FATAL: TiDB (dan MySQL strict mode) TIDAK mengizinkan DEFAULT value
+// pada kolom bertipe BLOB/TEXT/JSON. Menghapus DEFAULT '' adalah satu-satunya solusi.
+// Nilai kosong sudah ditangani oleh method read() pada DbSessionHandler di bawah.
 mysqli_query($conn,
     "CREATE TABLE IF NOT EXISTS php_sessions (
         session_id   VARCHAR(128) NOT NULL PRIMARY KEY,
-        session_data LONGTEXT     NOT NULL DEFAULT '',
+        session_data LONGTEXT     NOT NULL,
         session_expiry BIGINT     NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
 );

@@ -1,5 +1,12 @@
 <?php
-include 'koneksi.php'; // Pastikan variabel koneksi ($conn atau $koneksi) sudah benar
+// SECURITY FIX: Sebelumnya tidak ada session_start() dan cek role sama sekali.
+// Siapapun bisa buka halaman ini dan melihat seluruh log aktivitas user & admin.
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== "admin") {
+    header("location:login.php");
+    exit();
+}
+include 'koneksi.php';
 ?>
 
 <!DOCTYPE html>
