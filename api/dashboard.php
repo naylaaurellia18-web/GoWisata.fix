@@ -171,6 +171,7 @@ $tahun_operasi = 2026;
                 <h5 class="fw-bold">Sistem Tiket</h5>
                 <p class="text-muted small">Lihat daftar 9 destinasi favorit dan pesan tiketnya.</p>
                 <button class="btn btn-outline-primary btn-sm rounded-pill mt-2 px-4">Buka</button>
+                <a href="cetak_tiket.php?id=<?php echo $data['id']; ?>">Buka</a>
             </div>
         </div>
 
