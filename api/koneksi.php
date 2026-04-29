@@ -17,27 +17,13 @@ if (!$ok) {
 $koneksi = $conn;
 
 // Buat tabel session otomatis jika belum ada
-// FIX: TiDB tidak izinkan DEFAULT '' pada LONGTEXT — dihapus
 mysqli_query($conn,
     "CREATE TABLE IF NOT EXISTS php_sessions (
-        session_id     VARCHAR(128) NOT NULL PRIMARY KEY,
-        session_data   LONGTEXT     NOT NULL,
-        session_expiry BIGINT       NOT NULL
+        session_id   VARCHAR(128) NOT NULL PRIMARY KEY,
+        session_data LONGTEXT     NOT NULL DEFAULT '',
+        session_expiry BIGINT     NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
 );
-
-// Buat tabel pengguna jika belum ada (dengan AUTO_INCREMENT yang benar)
-mysqli_query($conn,
-    "CREATE TABLE IF NOT EXISTS pengguna (
-        id       INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(100) NOT NULL UNIQUE,
-        email    VARCHAR(150),
-        password VARCHAR(255) NOT NULL,
-        role     VARCHAR(20)  NOT NULL DEFAULT 'user'
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
-);
-// Jika tabel sudah ada tapi kolom id belum AUTO_INCREMENT, perbaiki otomatis
-@mysqli_query($conn, "ALTER TABLE pengguna MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT");
 
 // ============================================================
 // Custom Session Handler — menyimpan session di TiDB
