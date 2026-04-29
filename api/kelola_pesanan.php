@@ -2,7 +2,14 @@
 session_start();
 include 'koneksi.php';
 
-// Opsional: Tambahkan proteksi agar hanya Admin yang bisa buka halaman ini
+// BUG #12 FIX: Sebelumnya tidak ada proteksi sama sekali — siapa saja bisa
+// buka halaman ini tanpa login. Sekarang ditambahkan pengecekan role admin.
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== "admin") {
+    header("location:login.php");
+    exit();
+}
+
+$db = isset($conn) ? $conn : (isset($koneksi) ? $koneksi : null);
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +18,6 @@ include 'koneksi.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Pesanan - Admin GoWisata</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #f4f7f6; }
@@ -26,7 +32,7 @@ include 'koneksi.php';
         <h2 class="fw-bold">📊 Riwayat Pesanan Masuk</h2>
         <div>
             <a href="kelola_destinasi.php" class="btn btn-outline-dark">Kelola Destinasi</a>
-            <a href="dashboard.php" class="btn btn-primary">Ke Dashboard</a>
+            <a href="admin_dashboard.php" class="btn btn-primary">Ke Dashboard</a>
         </div>
     </div>
 
@@ -35,37 +41,34 @@ include 'koneksi.php';
             <thead class="table-dark">
                 <tr>
                     <th>No</th>
-                    <th>ID Invoice</th>
+                    <th>No. Invoice</th>
                     <th>Nama Pemesan</th>
                     <th>Destinasi</th>
-                    <th>Jumlah</th>
                     <th>Total Bayar</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
             <?php
-            // Query untuk mengambil semua data pesanan
-            // Gantilah $conn menjadi $koneksi jika itu yang ada di koneksi.php
-            $query = mysqli_query($conn, "SELECT * FROM pesanan ORDER BY id_pesanan DESC");
+            // Gunakan tabel riwayat_transaksi yang konsisten dengan file lain
+            $query = mysqli_query($db, "SELECT * FROM riwayat_transaksi ORDER BY tanggal DESC");
             $no = 1;
 
-            if (mysqli_num_rows($query) > 0) {
+            if ($query && mysqli_num_rows($query) > 0) {
                 while ($row = mysqli_fetch_assoc($query)) {
             ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td class="fw-bold text-primary"><?= $row['id_pesanan'] ?></td>
-                    <td><?= isset($row['nama_user']) ? $row['nama_user'] : 'Pelanggan' ?></td>
-                    <td><?= $row['destinasi'] ?></td>
-                    <td><?= isset($row['jumlah']) ? $row['jumlah'] : '-' ?> Tiket</td>
-                    <td class="fw-bold">Rp <?= number_format($row['total'], 0, ',', '.') ?></td>
-                    <td><span class="badge badge-lunas"><?= $row['status'] ?></span></td>
+                    <td class="fw-bold text-primary">#<?= htmlspecialchars($row['no_invoice']) ?></td>
+                    <td><?= htmlspecialchars($row['username']) ?></td>
+                    <td><?= htmlspecialchars($row['destinasi']) ?></td>
+                    <td class="fw-bold">Rp <?= number_format($row['total_bayar'], 0, ',', '.') ?></td>
+                    <td><span class="badge bg-success"><?= htmlspecialchars($row['status']) ?></span></td>
                 </tr>
             <?php 
                 } 
             } else {
-                echo "<tr><td colspan='7' class='text-center py-4 text-muted'>Belum ada transaksi masuk.</td></tr>";
+                echo "<tr><td colspan='6' class='text-center py-4 text-muted'>Belum ada transaksi masuk.</td></tr>";
             }
             ?>
             </tbody>

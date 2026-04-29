@@ -1,20 +1,19 @@
 <?php
-error_reporting(0); 
 session_start();
 
-// Paksa status login agar tidak 'Too Many Redirects'
-if (!isset($_SESSION['status'])) {
-    $_SESSION['status'] = "login";
-    $_SESSION['username'] = "Lia"; 
+// BUG #7 FIX: Sebelumnya ada kode yang MEMAKSA session login meskipun user belum login:
+//   $_SESSION['status'] = "login";
+//   $_SESSION['username'] = "Lia";
+// Ini sangat berbahaya karena siapa pun bisa buka dashboard tanpa login!
+// Sekarang diganti dengan pengecekan yang benar.
+$username_login = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
+
+if (!$username_login || !isset($_SESSION['status'])) {
+    header("Location: login.php");
+    exit();
 }
 
-$nama_tampil = $_SESSION['username'];
-
-// Variabel statistik manual biar dashboard terlihat penuh saat presentasi
-$jumlah_destinasi = 9;
-$status_akun = "Aktif";
-$promo_spesial = 12;
-$tahun_operasi = 2026;
+$nama_tampil = $username_login;
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -28,7 +27,6 @@ $tahun_operasi = 2026;
         body { background-color: #f0f2f5; font-family: 'Inter', sans-serif; }
         .navbar-custom { background-color: #f37021; padding: 12px 0; }
         
-        /* Banner Welcome Gradasi */
         .welcome-banner {
             background: linear-gradient(45deg, #f37021, #ff9f43);
             border-radius: 20px;
@@ -38,7 +36,6 @@ $tahun_operasi = 2026;
             box-shadow: 0 10px 20px rgba(243, 112, 33, 0.2);
         }
 
-        /* Card Statistik Modern dengan Border Samping */
         .stat-card {
             border: none;
             border-radius: 12px;
@@ -47,7 +44,6 @@ $tahun_operasi = 2026;
         }
         .stat-card:hover { transform: translateY(-5px); }
         
-        /* Desain Menu Utama */
         .menu-card {
             border: none;
             border-radius: 20px;
@@ -71,7 +67,6 @@ $tahun_operasi = 2026;
             font-size: 1.5rem;
         }
 
-        /* Tombol Custom */
         .btn-go { background-color: #f37021; color: white; border-radius: 50px; font-weight: 600; }
         .btn-go:hover { background-color: #d65a10; color: white; }
     </style>
@@ -84,7 +79,7 @@ $tahun_operasi = 2026;
             <i class="bi bi-airplane-engines me-2"></i>GoWisata
         </a>
         <div class="ms-auto d-flex align-items-center">
-            <span class="text-white me-3 d-none d-md-block">Hallo,selamat datang <b><?= htmlspecialchars($nama_tampil); ?></b></span>
+            <span class="text-white me-3 d-none d-md-block">Hallo, selamat datang <b><?= htmlspecialchars($nama_tampil); ?></b></span>
             <a href="logout.php" class="btn btn-light btn-sm rounded-pill px-3 fw-bold text-dark">Keluar</a>
         </div>
     </div>
@@ -132,7 +127,7 @@ $tahun_operasi = 2026;
             </div>
         </div>
 
-        <div class="col-md-3 col-sm-6" onclick="window.location.href='promo.php'" style="cursor: pointer;">
+        <div class="col-md-3 col-sm-6">
             <div class="card stat-card shadow-sm h-100 border-start border-warning border-4">
                 <div class="card-body d-flex align-items-center">
                     <div class="flex-shrink-0 bg-warning bg-opacity-10 text-warning p-3 rounded-3">
@@ -174,7 +169,7 @@ $tahun_operasi = 2026;
             </div>
         </div>
 
-        <div class="col-md-4" onclick="window.location.href='statistik_bps.php'">
+        <div class="col-md-4" onclick="window.location.href='header.php'">
             <div class="card menu-card p-4 h-100 shadow-sm">
                 <div class="icon-circle bg-success bg-opacity-10 text-success">
                     <i class="bi bi-graph-up-arrow"></i>

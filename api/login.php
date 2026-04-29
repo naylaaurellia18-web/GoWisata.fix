@@ -37,7 +37,9 @@
             </div>
             <button type="submit" name="login" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">MASUK KE DASHBOARD</button>
             <div class="text-center mt-3">
-                <a href="index.html class="text-decoration-none small text-muted">← Kembali ke Beranda</a>
+                <!-- BUG #5 FIX: Sebelumnya href="index.html class= (quote tidak ditutup sebelum spasi)
+                     Ini menyebabkan tombol "Kembali ke Beranda" tidak berfungsi -->
+                <a href="index.html" class="text-decoration-none small text-muted">← Kembali ke Beranda</a>
             </div>
         </form>
 

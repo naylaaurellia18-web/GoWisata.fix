@@ -2,23 +2,40 @@
 session_start();
 include 'koneksi.php';
 
-// Ambil ID Invoice dari URL
+// BUG #13 FIX (tambahan): Sebelumnya tidak ada cek session sama sekali
+// Siapa saja bisa akses cetak tiket orang lain jika tahu nomor invoice-nya
+$username_login = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
+if (!$username_login) {
+    header("Location: login.php");
+    exit();
+}
+
 $id_invoice = $_GET['id'] ?? '';
 
 if (empty($id_invoice)) {
     die("Data tiket tidak ditemukan.");
 }
 
-// Gunakan variabel koneksi yang fleksibel agar tidak error
 $db = isset($conn) ? $conn : (isset($koneksi) ? $koneksi : null);
 
-// Ambil data transaksi berdasarkan invoice
-$sql = "SELECT * FROM riwayat_transaksi WHERE no_invoice = '$id_invoice'";
+$id_safe = mysqli_real_escape_string($db, $id_invoice);
+
+// Cek kepemilikan tiket — user hanya bisa cetak tiketnya sendiri
+// Admin boleh cetak semua tiket
+$is_admin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
+
+if ($is_admin) {
+    $sql = "SELECT * FROM riwayat_transaksi WHERE no_invoice = '$id_safe'";
+} else {
+    $username_safe = mysqli_real_escape_string($db, $username_login);
+    $sql = "SELECT * FROM riwayat_transaksi WHERE no_invoice = '$id_safe' AND username = '$username_safe'";
+}
+
 $query = mysqli_query($db, $sql);
-$data = mysqli_fetch_assoc($query);
+$data  = mysqli_fetch_assoc($query);
 
 if (!$data) {
-    die("Tiket dengan nomor invoice tersebut tidak ada.");
+    die("Tiket tidak ditemukan atau Anda tidak memiliki akses ke tiket ini.");
 }
 ?>
 
@@ -27,13 +44,12 @@ if (!$data) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak Tiket - #<?= $data['no_invoice']; ?></title>
+    <title>Cetak Tiket - #<?= htmlspecialchars($data['no_invoice']); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         body { background-color: #eee; font-family: 'Inter', sans-serif; }
         
-        /* Desain Tiket */
         .ticket-container {
             max-width: 600px; margin: 30px auto;
             background: white; border-radius: 20px; overflow: hidden;
@@ -46,7 +62,6 @@ if (!$data) {
 
         .ticket-body { padding: 30px; border-bottom: 2px dashed #eee; position: relative; }
         
-        /* Efek Lubang Tiket di Samping */
         .ticket-body::before, .ticket-body::after {
             content: ''; position: absolute; bottom: -15px;
             width: 30px; height: 30px; background: #eee; border-radius: 50%;
@@ -64,10 +79,9 @@ if (!$data) {
             border-radius: 10px;
         }
 
-        /* Khusus Tampilan Cetak (Print) */
         @media print {
             body { background: white; }
-            .btn-print, .btn-kembali { display: none; } /* Sembunyikan tombol saat diprint */
+            .btn-print, .btn-kembali { display: none; }
             .ticket-container { box-shadow: none; margin: 0; max-width: 100%; border: 1px solid #eee; }
         }
     </style>
@@ -85,21 +99,21 @@ if (!$data) {
             <div class="row g-4">
                 <div class="col-6">
                     <div class="info-label">Nama Traveler</div>
-                    <div class="info-value"><?= $data['username']; ?></div>
+                    <div class="info-value"><?= htmlspecialchars($data['username']); ?></div>
                 </div>
                 <div class="col-6 text-end">
                     <div class="info-label">No. Invoice</div>
-                    <div class="info-value">#<?= $data['no_invoice']; ?></div>
+                    <div class="info-value">#<?= htmlspecialchars($data['no_invoice']); ?></div>
                 </div>
                 <div class="col-12 text-center my-3">
                     <div class="qr-placeholder">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=<?= $data['no_invoice']; ?>" alt="QR Code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=<?= urlencode($data['no_invoice']); ?>" alt="QR Code">
                     </div>
                     <p class="small text-muted mt-2">Scan di gerbang masuk</p>
                 </div>
                 <div class="col-12">
                     <div class="info-label">Destinasi Tujuan</div>
-                    <div class="info-value text-primary"><?= $data['destinasi']; ?></div>
+                    <div class="info-value text-primary"><?= htmlspecialchars($data['destinasi']); ?></div>
                 </div>
                 <div class="col-6">
                     <div class="info-label">Tanggal Kunjungan</div>
@@ -107,7 +121,7 @@ if (!$data) {
                 </div>
                 <div class="col-6 text-end">
                     <div class="info-label">Status Pembayaran</div>
-                    <div class="info-value text-success"><?= $data['status']; ?></div>
+                    <div class="info-value text-success"><?= htmlspecialchars($data['status']); ?></div>
                 </div>
             </div>
         </div>
@@ -128,11 +142,6 @@ if (!$data) {
         </a>
     </div>
 </div>
-
-<script>
-    // window.onload = function() { window.print(); } 
-    // Hapus tanda komentar di atas jika ingin langsung print otomatis
-</script>
 
 </body>
 </html>

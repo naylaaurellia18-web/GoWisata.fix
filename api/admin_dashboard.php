@@ -10,21 +10,21 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== "admin") {
 
 $db = isset($conn) ? $conn : $koneksi;
 
+// BUG #8 FIX: Sebelumnya pakai $_SESSION['user'] yang tidak selalu di-set.
+// Sekarang cek keduanya agar aman.
+$nama_admin = $_SESSION['username'] ?? $_SESSION['user'] ?? 'Admin';
+
 // --- Ambil Data Statistik ---
-// 1. Total Pendapatan
 $res_pendapatan = mysqli_query($db, "SELECT SUM(total_bayar) as total FROM riwayat_transaksi");
 $row_pendapatan = mysqli_fetch_assoc($res_pendapatan);
-$total_duit = $row_pendapatan['total'] ?? 0;
+$total_duit     = $row_pendapatan['total'] ?? 0;
 
-// 2. Total Pesanan
 $res_pesanan = mysqli_query($db, "SELECT COUNT(*) as total FROM riwayat_transaksi");
 $row_pesanan = mysqli_fetch_assoc($res_pesanan);
 
-// 3. Jumlah User
 $res_user = mysqli_query($db, "SELECT COUNT(*) as total FROM pengguna");
 $row_user = mysqli_fetch_assoc($res_user);
 
-// 4. Jumlah Destinasi
 $res_wisata = mysqli_query($db, "SELECT COUNT(*) as total FROM destinasi");
 $row_wisata = mysqli_fetch_assoc($res_wisata);
 ?>
@@ -49,7 +49,7 @@ $row_wisata = mysqli_fetch_assoc($res_wisata);
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="fw-bold text-dark">🚀 Dashboard Admin</h1>
-            <p class="text-muted">Selamat bekerja, <strong><?php echo $_SESSION['user']; ?></strong>!</p>
+            <p class="text-muted">Selamat bekerja, <strong><?= htmlspecialchars($nama_admin); ?></strong>!</p>
         </div>
         <div>
             <a href="dashboard.php" class="btn btn-outline-primary me-2">Beranda</a>
@@ -131,9 +131,9 @@ $row_wisata = mysqli_fetch_assoc($res_wisata);
                     while($t = mysqli_fetch_assoc($res_transaksi)) {
                     ?>
                     <tr>
-                        <td class="ps-4 fw-bold">#<?= $t['no_invoice']; ?></td>
-                        <td><?= $t['username']; ?></td>
-                        <td><?= $t['destinasi']; ?></td>
+                        <td class="ps-4 fw-bold">#<?= htmlspecialchars($t['no_invoice']); ?></td>
+                        <td><?= htmlspecialchars($t['username']); ?></td>
+                        <td><?= htmlspecialchars($t['destinasi']); ?></td>
                         <td>Rp <?= number_format($t['total_bayar'], 0, ',', '.'); ?></td>
                         <td><span class="badge bg-success">Lunas</span></td>
                     </tr>
@@ -142,7 +142,7 @@ $row_wisata = mysqli_fetch_assoc($res_wisata);
             </table>
         </div>
         <div class="card-footer bg-white text-center">
-            <a href="riwayat_pesanan.php" class="text-decoration-none btn btn-sm btn-link">Lihat Semua Riwayat →</a>
+            <a href="kelola_pesanan.php" class="text-decoration-none btn btn-sm btn-link">Lihat Semua Riwayat →</a>
         </div>
     </div>
 </div>

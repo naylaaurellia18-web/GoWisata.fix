@@ -1,11 +1,18 @@
 <?php
 session_start();
-include 'koneksi.php'; // Mengambil setingan dari koneksi.php
+include 'koneksi.php';
 
-if (!isset($_SESSION['user'])) { header("Location: login.php"); exit(); }
+// BUG #9 FIX: Sebelumnya cek $_SESSION['user'] saja, padahal prosesLogin.php
+// bisa set $_SESSION['username'] — membuat halaman ini selalu redirect ke login
+$username_session = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
+
+if (!$username_session) {
+    header("Location: login.php");
+    exit();
+}
 
 // Tangkap data dari URL
-$nama   = $_GET['nama'] ?? $_SESSION['user'];
+$nama   = $_GET['nama'] ?? $username_session;
 $total  = $_GET['total'] ?? 0;
 $metode = $_GET['metode'] ?? "QRIS";
 $wisata = $_GET['wisata'] ?? "Wisata";
@@ -14,16 +21,19 @@ $jumlah = $_GET['jumlah'] ?? 1;
 $simpan_sukses = false;
 
 // PROSES SIMPAN OTOMATIS
-if ($total > 0) {
-    $tanggal = date("Y-m-d");
+if ($total > 0 && isset($conn)) {
+    $tanggal    = date("Y-m-d");
     $no_invoice = "INV-" . time();
-    $status = "Lunas";
+    $status     = "Lunas";
+
+    $nama_safe   = mysqli_real_escape_string($conn, $nama);
+    $wisata_safe = mysqli_real_escape_string($conn, $wisata);
+    $total_safe  = (int) $total;
     
-    // Gunakan variabel $conn dari koneksi.php
     $query = "INSERT INTO riwayat_transaksi (no_invoice, username, destinasi, tanggal, total_bayar, status) 
-              VALUES ('$no_invoice', '$nama', '$wisata', '$tanggal', '$total', '$status')";
+              VALUES ('$no_invoice', '$nama_safe', '$wisata_safe', '$tanggal', '$total_safe', '$status')";
     
-    if(mysqli_query($conn, $query)) {
+    if (mysqli_query($conn, $query)) {
         $simpan_sukses = true;
     }
 }
@@ -46,7 +56,7 @@ if ($total > 0) {
 <div class="container">
     <div class="card card-pay p-4 text-center">
         <h5 class="fw-bold text-muted mb-1">Halo, <?= htmlspecialchars($nama); ?>!</h5>
-        <p class="small text-muted mb-4">Selesaikan pembayaran untuk <b><?= $wisata; ?></b></p>
+        <p class="small text-muted mb-4">Selesaikan pembayaran untuk <b><?= htmlspecialchars($wisata); ?></b></p>
         
         <div class="bg-light p-3 rounded-4 mb-4">
             <p class="small text-muted mb-0">Total Tagihan</p>
@@ -55,10 +65,10 @@ if ($total > 0) {
 
         <div class="mb-4">
             <?php if($metode == "QRIS"): ?>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=GOWISATA-<?= $total; ?>" class="border p-2 bg-white mb-2">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=GOWISATA-<?= (int)$total; ?>" class="border p-2 bg-white mb-2">
                 <p class="small text-muted">Scan QRIS di atas</p>
             <?php else: ?>
-                <p class="small text-muted mb-1">Transfer ke <?= $metode; ?>:</p>
+                <p class="small text-muted mb-1">Transfer ke <?= htmlspecialchars($metode); ?>:</p>
                 <h4 class="fw-bold text-dark">8901234567</h4>
             <?php endif; ?>
         </div>

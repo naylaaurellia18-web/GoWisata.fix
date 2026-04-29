@@ -2,22 +2,25 @@
 session_start();
 include 'koneksi.php'; 
 
-// Menggunakan variabel koneksi yang fleksibel ($db atau $koneksi)
 $db = isset($conn) ? $conn : (isset($koneksi) ? $koneksi : null);
 
 if (!$db) {
     die("Koneksi database gagal. Pastikan file koneksi.php sudah benar.");
 }
-// Cek apakah user sudah login
-if(!isset($_SESSION['user'])){
+
+// BUG #6 FIX: Sebelumnya cek $_SESSION['user'] saja, tapi prosesLogin.php
+// hanya set $_SESSION['username'] — menyebabkan selalu redirect ke login.
+// Sekarang cek keduanya untuk kompatibilitas.
+$username_login = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
+
+if (!$username_login) {
     header("Location: login.php");
     exit();
 }
 
-$username_login = $_SESSION['user'];
-
-// Query mengambil data dari tabel 'riwayat_transaksi' sesuai database kamu
-$sql = "SELECT * FROM riwayat_transaksi WHERE username = '$username_login' ORDER BY tanggal DESC";
+// Query mengambil data dari tabel 'riwayat_transaksi' sesuai database
+$username_safe = mysqli_real_escape_string($db, $username_login);
+$sql   = "SELECT * FROM riwayat_transaksi WHERE username = '$username_safe' ORDER BY tanggal DESC";
 $query = mysqli_query($db, $sql);
 
 if (!$query) {
@@ -45,7 +48,7 @@ if (!$query) {
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold mb-0">📋 Riwayat Pesanan Anda</h2>
-            <p class="text-muted">Halo, <?= $username_login; ?>! Berikut daftar perjalananmu.</p>
+            <p class="text-muted">Halo, <?= htmlspecialchars($username_login); ?>! Berikut daftar perjalananmu.</p>
         </div>
         <a href="dashboard.php" class="btn btn-outline-secondary btn-back px-4 shadow-sm">
             ← Kembali ke Dashboard
@@ -72,23 +75,23 @@ if (!$query) {
                             while($data = mysqli_fetch_assoc($query)) { 
                         ?>
                         <tr>
-                            <td class="ps-4 fw-bold text-primary">#<?= $data['no_invoice']; ?></td>
-                            <td><?= $data['destinasi']; ?></td>
+                            <td class="ps-4 fw-bold text-primary">#<?= htmlspecialchars($data['no_invoice']); ?></td>
+                            <td><?= htmlspecialchars($data['destinasi']); ?></td>
                             <td><?= date('d M Y', strtotime($data['tanggal'])); ?></td>
                             <td class="fw-bold text-success">Rp <?= number_format($data['total_bayar'], 0, ',', '.'); ?></td>
                             <td>
                                 <span class="badge bg-success">
-                                    <?= $data['status']; ?>
+                                    <?= htmlspecialchars($data['status']); ?>
                                 </span>
                             </td>
                             <td class="text-center">
-                                <a href="cetak_tiket.php?id=<?= $data['no_invoice']; ?>" class="btn btn-sm btn-primary px-3 shadow-sm">Cetak Tiket</a>
+                                <a href="cetak_tiket.php?id=<?= urlencode($data['no_invoice']); ?>" class="btn btn-sm btn-primary px-3 shadow-sm">Cetak Tiket</a>
                             </td>
                         </tr>
                         <?php 
                             } 
                         } else {
-                            echo "<tr><td colspan='6' class='text-center text-muted py-5'>Belum ada riwayat pemesanan untuk akun <b>$username_login</b>.</td></tr>";
+                            echo "<tr><td colspan='6' class='text-center text-muted py-5'>Belum ada riwayat pemesanan untuk akun <b>" . htmlspecialchars($username_login) . "</b>.</td></tr>";
                         }
                         ?>
                     </tbody>
