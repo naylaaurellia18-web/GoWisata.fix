@@ -1,6 +1,16 @@
 <?php
+// BUG FIX: include koneksi.php SEBELUM session_start()
+// Tanpa ini, DbSessionHandler tidak terdaftar → session tidak terbaca → selalu redirect ke login
+include 'koneksi.php';
 session_start();
-if (!isset($_SESSION['user'])) { header("Location: login.php"); exit(); }
+
+// BUG FIX: Sebelumnya hanya cek $_SESSION['user'], padahal prosesLogin.php
+// set KEDUA variabel. Sekarang cek keduanya agar tidak salah redirect.
+$username_session = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
+if (!$username_session) {
+    header("Location: login.php");
+    exit();
+}
 
 // 1. Tangkap data dari URL (Data dasar dari destinasi.php)
 $wisata = $_GET['wisata'] ?? "Destinasi";
@@ -45,20 +55,20 @@ if ($harga_satuan_promo < 0) $harga_satuan_promo = 0;
                 <h4 class="fw-bold text-center mb-4">Detail Pemesanan</h4>
                 
                 <form action="pembayaran.php" method="GET">
-                    <input type="hidden" name="nama" value="<?= $_SESSION['user']; ?>">
-                    <input type="hidden" name="wisata" value="<?= $wisata; ?>">
+                    <input type="hidden" name="nama" value="<?= htmlspecialchars($username_session); ?>">
+                    <input type="hidden" name="wisata" value="<?= htmlspecialchars($wisata); ?>">
                     <input type="hidden" id="harga_dasar_promo" value="<?= $harga_satuan_promo; ?>">
                     
                     <div class="mb-3">
                         <label class="small text-muted">Destinasi Pilihan</label>
-                        <h5 class="fw-bold text-primary"><?= $wisata; ?></h5>
+                        <h5 class="fw-bold text-primary"><?= htmlspecialchars($wisata); ?></h5>
                     </div>
 
                     <div class="mb-4">
                         <label class="fw-bold small mb-2">Promo Untukmu</label>
                         <div class="input-group">
                             <span class="input-group-text bg-white"><i class="bi bi-ticket-perforation text-warning"></i></span>
-                            <input type="text" name="kode" id="input_kode" class="form-control bg-white" placeholder="Pilih promo..." value="<?= $kode; ?>" readonly>
+                            <input type="text" name="kode" id="input_kode" class="form-control bg-white" placeholder="Pilih promo..." value="<?= htmlspecialchars($kode); ?>" readonly>
                             <button class="btn btn-warning fw-bold text-white" type="button" data-bs-toggle="modal" data-bs-target="#modalPromo">PILIH</button>
                         </div>
                     </div>
@@ -145,11 +155,9 @@ function pilihPromo(kode, diskon, potongan, label) {
         hargaBaru = hargaAsli - potongan;
     }
 
-    // Update Input Hidden
     document.getElementById('input_kode').value = kode;
     document.getElementById('harga_dasar_promo').value = hargaBaru;
     
-    // Tampilkan label potongan
     if(kode !== "") {
         document.getElementById('info_promo').classList.remove('d-none');
         document.getElementById('teks_diskon').innerText = "-" + label;
@@ -157,7 +165,7 @@ function pilihPromo(kode, diskon, potongan, label) {
         document.getElementById('info_promo').classList.add('d-none');
     }
 
-    updateHarga(); // Hitung ulang total
+    updateHarga();
     bootstrap.Modal.getInstance(document.getElementById('modalPromo')).hide();
     
     if(kode !== "") {

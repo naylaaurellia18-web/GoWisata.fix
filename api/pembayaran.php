@@ -1,9 +1,10 @@
 <?php
-session_start();
+// BUG FIX: include koneksi.php HARUS sebelum session_start()
+// Sebelumnya terbalik: session_start() dulu baru include koneksi
+// Akibatnya DbSessionHandler tidak aktif → session tidak terbaca
 include 'koneksi.php';
+session_start();
 
-// BUG #9 FIX: Sebelumnya cek $_SESSION['user'] saja, padahal prosesLogin.php
-// bisa set $_SESSION['username'] — membuat halaman ini selalu redirect ke login
 $username_session = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
 
 if (!$username_session) {
