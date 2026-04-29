@@ -9,8 +9,8 @@ if (empty($id_invoice)) {
     die("Data tiket tidak ditemukan.");
 }
 
-// PERBAIKAN: Gunakan variabel koneksi yang fleksibel seperti di riwayat_pesanan.php
-$db = isset($conn) ? $conn : $koneksi;
+// Gunakan variabel koneksi yang fleksibel agar tidak error
+$db = isset($conn) ? $conn : (isset($koneksi) ? $koneksi : null);
 
 // Ambil data transaksi berdasarkan invoice
 $sql = "SELECT * FROM riwayat_transaksi WHERE no_invoice = '$id_invoice'";

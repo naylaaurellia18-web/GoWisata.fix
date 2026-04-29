@@ -3,8 +3,11 @@ session_start();
 include 'koneksi.php'; 
 
 // Menggunakan variabel koneksi yang fleksibel ($db atau $koneksi)
-$db = isset($conn) ? $conn : $koneksi;
+$db = isset($conn) ? $conn : (isset($koneksi) ? $koneksi : null);
 
+if (!$db) {
+    die("Koneksi database gagal. Pastikan file koneksi.php sudah benar.");
+}
 // Cek apakah user sudah login
 if(!isset($_SESSION['user'])){
     header("Location: login.php");
