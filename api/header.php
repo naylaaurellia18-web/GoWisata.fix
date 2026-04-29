@@ -1,5 +1,6 @@
 <?php
-// SECURITY FIX: Halaman statistik tidak boleh diakses tanpa login.
+// ORDER FIX + SECURITY FIX: include koneksi dulu, baru session_start, lalu cek login
+include 'koneksi.php';
 session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== "login") {
     header("location:login.php");

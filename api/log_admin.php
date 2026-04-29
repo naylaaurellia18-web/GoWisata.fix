@@ -1,12 +1,12 @@
 <?php
-// SECURITY FIX: Sebelumnya tidak ada session_start() dan cek role sama sekali.
-// Siapapun bisa buka halaman ini dan melihat seluruh log aktivitas user & admin.
+// ORDER FIX: include koneksi SEBELUM session_start
+// SECURITY FIX: Tambahkan proteksi — sebelumnya siapapun bisa lihat log aktivitas
+include 'koneksi.php';
 session_start();
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== "admin") {
     header("location:login.php");
     exit();
 }
-include 'koneksi.php';
 ?>
 
 <!DOCTYPE html>

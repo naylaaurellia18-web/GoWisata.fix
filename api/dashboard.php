@@ -1,4 +1,6 @@
 <?php
+// ORDER FIX: include koneksi SEBELUM session_start (agar handler DB aktif dulu)
+include 'koneksi.php';
 session_start();
 
 // BUG #7 FIX: Sebelumnya ada kode yang MEMAKSA session login meskipun user belum login:

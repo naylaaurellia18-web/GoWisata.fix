@@ -1,5 +1,8 @@
 <?php
-session_start(); // Memulai session agar bisa dihapus
+// ORDER FIX: include koneksi SEBELUM session_start
+// Tanpa ini, session di TiDB tidak ter-destroy dengan benar di Vercel
+include 'koneksi.php';
+session_start();
 session_unset(); // Menghapus semua variabel session
 session_destroy(); // Menghancurkan session
 

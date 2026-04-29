@@ -1,6 +1,7 @@
 <?php
-session_start();
+// ORDER FIX: include koneksi SEBELUM session_start
 include 'koneksi.php';
+session_start();
 
 // BUG #13 FIX (tambahan): Sebelumnya tidak ada cek session sama sekali
 // Siapa saja bisa akses cetak tiket orang lain jika tahu nomor invoice-nya

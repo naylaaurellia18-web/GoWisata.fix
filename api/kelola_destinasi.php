@@ -1,6 +1,7 @@
 <?php
-session_start();
+// ORDER FIX: include koneksi SEBELUM session_start
 include 'koneksi.php';
+session_start();
 $db = isset($koneksi) ? $koneksi : $conn;
 
 // Proteksi Admin
@@ -11,8 +12,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== "admin") {
 
 // --- LOGIKA HAPUS DESTINASI ---
 if (isset($_GET['hapus'])) {
-    // SQL INJECTION FIX: Sebelumnya $_GET['hapus'] langsung dimasukkan ke query
-    // tanpa di-escape sama sekali — ini celah SQL Injection yang berbahaya.
+    // SQL INJECTION FIX: escape input sebelum masuk query
     $id = mysqli_real_escape_string($db, $_GET['hapus']);
     mysqli_query($db, "DELETE FROM destinasi WHERE id_destinasi = '$id'");
     header("location:kelola_destinasi.php");

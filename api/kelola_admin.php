@@ -1,6 +1,7 @@
 <?php
-session_start();
+// ORDER FIX: include koneksi SEBELUM session_start
 include 'koneksi.php';
+session_start();
 $db = isset($koneksi) ? $koneksi : $conn;
 
 // Proteksi Admin

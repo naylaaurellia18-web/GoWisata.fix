@@ -1,6 +1,8 @@
 <?php
-session_start();
+// ORDER FIX: koneksi.php HARUS di-include sebelum session_start()
+// agar custom DbSessionHandler terdaftar lebih dulu (wajib untuk Vercel/serverless)
 include 'koneksi.php';
+session_start();
 
 // BUG #1 FIX: Sebelumnya cek $pdo padahal koneksi.php pakai mysqli ($conn)
 // Akibatnya login SELALU gagal karena $pdo tidak pernah ada

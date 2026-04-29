@@ -56,9 +56,7 @@
                 <label class="form-label fw-semibold">Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Password Baru" required>
             </div>
-            <!-- SECURITY FIX: Role admin tidak boleh bisa dipilih dari form publik.
-                 Pendaftaran admin hanya boleh dilakukan langsung di database.
-                 Role selalu dikunci menjadi 'user' oleh proses_register.php -->
+            <!-- SECURITY FIX: Role admin tidak bisa dipilih dari form publik -->
             <input type="hidden" name="role" value="user">
             <button type="submit" name="register" class="btn btn-warning w-100 text-white fw-bold py-2 shadow-sm">DAFTAR AKUN</button>
         </form>

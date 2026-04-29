@@ -1,9 +1,7 @@
 <?php
-// BUG #10 FIX: Sebelumnya file ini hanya berisi pesan error dan komentar
-// "// ... sisa kode kamu" tanpa ada logika registrasi sama sekali.
-// Akibatnya tombol Daftar Akun tidak pernah berfungsi.
-
+// ORDER FIX: include koneksi SEBELUM session_start
 include 'koneksi.php';
+session_start();
 
 if (!isset($conn)) {
     echo "<script>
@@ -17,9 +15,8 @@ if (isset($_POST['register'])) {
     $username = mysqli_real_escape_string($conn, trim($_POST['username']));
     $email    = mysqli_real_escape_string($conn, trim($_POST['email']));
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-    // SECURITY FIX: Role TIDAK BOLEH diambil dari $_POST karena bisa dimanipulasi.
-    // Meskipun form login.php sudah dikunci ke 'user', hacker bisa kirim POST
-    // manual dengan role=admin. Satu-satunya cara aman: hardcode 'user' di sini.
+    // SECURITY FIX: Role TIDAK BOLEH diambil dari $_POST (bisa dimanipulasi hacker).
+    // Selalu hardcode 'user' untuk pendaftaran publik.
     $role = 'user';
 
     // Validasi: username tidak boleh kosong

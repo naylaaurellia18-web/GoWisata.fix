@@ -1,6 +1,7 @@
 <?php
-session_start();
+// ORDER FIX: include koneksi SEBELUM session_start
 include 'koneksi.php';
+session_start();
 
 // BUG #12 FIX: Sebelumnya tidak ada proteksi sama sekali — siapa saja bisa
 // buka halaman ini tanpa login. Sekarang ditambahkan pengecekan role admin.

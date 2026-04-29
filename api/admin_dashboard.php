@@ -1,6 +1,7 @@
 <?php
-session_start();
+// ORDER FIX: include koneksi SEBELUM session_start
 include 'koneksi.php';
+session_start();
 
 // Cek Role Admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== "admin") {
