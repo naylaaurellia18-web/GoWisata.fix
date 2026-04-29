@@ -21,7 +21,6 @@ $jumlah = $_GET['jumlah'] ?? 1;
 
 $simpan_sukses = false;
 
-// PROSES SIMPAN OTOMATIS
 if ($total > 0 && isset($conn)) {
     $tanggal    = date("Y-m-d");
     $no_invoice = "INV-" . time();
