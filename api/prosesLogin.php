@@ -34,7 +34,7 @@ if (isset($_POST['login'])) {
         if ($data['role'] == "admin") {
             header("location:admin_dashboard.php");
         } else {
-            header("location: dashboard.php");
+            header("location:dashboard.php");
         }
         exit();
     } else {
