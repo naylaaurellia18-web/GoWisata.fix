@@ -1,21 +1,3 @@
-<?php
-session_start();
-include 'koneksi.php';
-
-if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // CARA MANUAL: Langsung tentukan username & password tanpa cek database
-    if ($username == "admin" && $password == "admin123") {
-        $_SESSION['status'] = "login";
-        header("location:admin/index.php"); // Sesuaikan dengan folder tujuanmu
-    } else {
-        header("location:login.php?pesan=gagal");
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -23,7 +5,6 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - GoWisata</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <a href="/api/login.php">Login</a>
     <style>
         body { background: linear-gradient(135deg, #f37021 0%, #ffba42 100%); min-height: 100vh; }
         .card-login { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
@@ -45,7 +26,7 @@ if (isset($_POST['login'])) {
             <button class="btn btn-sm px-4 btn-outline-warning" id="btnRegTab" onclick="showRegister()">Register</button>
         </div>
 
-        <form id="loginForm" action="" method="POST">
+        <form id="loginForm" action="prosesLogin.php" method="POST">
             <div class="mb-3">
                 <label class="form-label fw-semibold">Username</label>
                 <input type="text" name="username" class="form-control" placeholder="Masukkan username" required>
