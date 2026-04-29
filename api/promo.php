@@ -1,4 +1,6 @@
 <?php
+// BUG FIX: include koneksi.php SEBELUM session_start() agar DbSessionHandler aktif
+include 'koneksi.php';
 session_start();
 $nama_tampil = $_SESSION['user'] ?? $_SESSION['username'] ?? "Pengguna";
 

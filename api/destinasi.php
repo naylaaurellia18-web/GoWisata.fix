@@ -1,4 +1,8 @@
 <?php
+// BUG FIX: include koneksi.php SEBELUM session_start()
+// Tanpa ini, DbSessionHandler tidak terdaftar → session TiDB tidak terbaca
+// → $_SESSION selalu kosong → selalu redirect ke login (bug utama dari screenshot)
+include 'koneksi.php';
 session_start();
 
 // --- TAMBAHAN LOGIKA PROMO ---
