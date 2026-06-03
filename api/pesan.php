@@ -43,7 +43,7 @@ $tgl_max = date('Y-m-d', strtotime('+1 year'));
         .promo-section { background:#fff4ed; border:2px dashed #f37021; border-radius:15px; padding:15px; }
         .promo-item { cursor:pointer; transition:0.3s; border-radius:12px; border:1px solid #ddd; }
         .promo-item:hover { border-color:#f37021; background:#fff9f5; }
-        .section-label { font-weight:700; font-size:0.85rem; color:#444; margin-bottom:6px; display:block; }
+        .section-label { font-weight:700; font-size:0.8rem; color:#555; margin-bottom:6px; display:block; }
         input[type="date"] { color: #333; }
     </style>
 </head>
@@ -52,73 +52,68 @@ $tgl_max = date('Y-m-d', strtotime('+1 year'));
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
             <div class="card card-order p-4">
-                <h4 class="fw-bold text-center mb-4">🎟 Detail Pemesanan</h4>
+                <h5 class="fw-bold text-center mb-4">🎟 Detail Pemesanan</h5>
 
                 <form action="pembayaran.php" method="GET" id="formPesan" onsubmit="return validasiForm()">
                     <input type="hidden" name="nama"   value="<?= htmlspecialchars($username_session); ?>">
                     <input type="hidden" name="wisata" value="<?= htmlspecialchars($wisata); ?>">
                     <input type="hidden" id="harga_dasar_promo" value="<?= (int)$harga_satuan_promo; ?>">
 
-                    <!-- Destinasi -->
                     <div class="mb-3 p-3 bg-light rounded-3">
                         <span class="section-label text-muted">Destinasi Pilihan</span>
-                        <h5 class="fw-bold text-primary mb-0"><?= htmlspecialchars($wisata); ?></h5>
+                        <h6 class="fw-bold text-primary mb-0 fs-5"><?= htmlspecialchars($wisata); ?></h6>
                     </div>
 
-                    <!-- TANGGAL KUNJUNGAN (BARU) -->
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="section-label">
                             <i class="bi bi-calendar-event text-danger me-1"></i>Tanggal Kunjungan
                         </label>
                         <input type="date"
                                name="tanggal"
                                id="input_tanggal"
-                               class="form-control form-control-lg"
+                               class="form-control"
                                min="<?= $tgl_min; ?>"
                                max="<?= $tgl_max; ?>"
                                required>
-                        <div class="form-text text-muted small">
+                        <div class="form-text text-muted" style="font-size: 0.75rem;">
                             <i class="bi bi-info-circle me-1"></i>Pilih tanggal kunjungan Anda (mulai besok)
                         </div>
                     </div>
 
-                    <!-- Promo -->
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="section-label">
                             <i class="bi bi-ticket-perforated text-warning me-1"></i>Kode Promo
                         </label>
-                        <div class="input-group">
-                            <input type="text" name="kode" id="input_kode" class="form-control bg-white"
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="kode" id="input_kode" class="form-control bg-white text-muted"
                                    placeholder="Pilih promo (opsional)..."
                                    value="<?= htmlspecialchars($kode); ?>" readonly>
-                            <button class="btn btn-warning fw-bold text-white" type="button"
+                            <button class="btn btn-warning fw-bold text-white btn-sm" type="button"
                                     data-bs-toggle="modal" data-bs-target="#modalPromo">PILIH</button>
                         </div>
                     </div>
 
-                    <!-- Jumlah Tiket -->
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="section-label">
                             <i class="bi bi-people me-1"></i>Jumlah Tiket
                         </label>
-                        <div class="input-group">
+                        <div class="input-group input-group-sm" style="max-width: 150px;">
                             <button class="btn btn-outline-secondary" type="button" onclick="ubahQty(-1)">−</button>
                             <input type="number" name="jumlah" id="qty"
-                                   class="form-control text-center fw-bold fs-5"
+                                   class="form-control text-center fw-bold"
                                    value="1" min="1" max="20" oninput="updateHarga()">
                             <button class="btn btn-outline-secondary" type="button" onclick="ubahQty(1)">+</button>
                         </div>
                     </div>
 
-                    <!-- Ringkasan Harga -->
-                    <div class="promo-section mb-4">
-                        <div class="d-flex justify-content-between mb-2 small">
+                    <div class="promo-section mb-3" style="font-size: 0.85rem;">
+                        <div class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Harga Normal / tiket:</span>
                             <span class="fw-bold <?= ($kode !== '') ? 'text-decoration-line-through text-muted' : 'text-dark'; ?>">
                                 Rp <?= number_format($harga_asli, 0, ',', '.'); ?>
                             </span>
                         </div>
-                        <div id="info_promo" class="d-flex justify-content-between mb-2 small <?= ($kode === '') ? 'd-none' : ''; ?>">
+                        <div id="info_promo" class="d-flex justify-content-between mb-2 <?= ($kode === '') ? 'd-none' : ''; ?>">
                             <span class="text-muted">Potongan Promo:</span>
                             <span class="fw-bold text-success" id="teks_diskon">
                                 <?php
@@ -129,106 +124,104 @@ $tgl_max = date('Y-m-d', strtotime('+1 year'));
                                 ?>
                             </span>
                         </div>
-                        <div class="d-flex justify-content-between mb-1 small text-muted">
+                        <div class="d-flex justify-content-between mb-1 text-muted">
                             <span>Jumlah Tiket:</span>
                             <span id="teks_qty">1 tiket</span>
                         </div>
                         <hr class="my-2">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold">Total Bayar:</span>
-                            <h3 class="fw-bold text-primary mb-0" id="tampilan_total">
+                            <span class="fw-bold text-dark">Total Bayar:</span>
+                            <h4 class="fw-bold text-primary mb-0" id="tampilan_total">
                                 Rp <?= number_format($harga_satuan_promo, 0, ',', '.'); ?>
-                            </h3>
+                            </h4>
                             <input type="hidden" name="total" id="input_total" value="<?= (int)$harga_satuan_promo; ?>">
                         </div>
                     </div>
 
-                    <!-- Metode Pembayaran -->
                     <div class="mb-4">
                         <label class="section-label">
                             <i class="bi bi-credit-card me-1"></i>Metode Pembayaran
                         </label>
-                        <select name="metode" class="form-select form-select-lg" required>
+                        <select name="metode" class="form-select" required>
                             <option value="QRIS">🔲 QRIS</option>
                             <option value="BCA">🏦 Transfer BCA</option>
                             <option value="DANA">💙 DANA</option>
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-warning w-100 py-3 fw-bold text-white shadow rounded-pill fs-5">
+                    <button type="submit" class="btn btn-warning w-100 py-2.5 fw-bold text-white shadow rounded-pill">
                         BAYAR SEKARANG 🚀
                     </button>
-                    <a href="destinasi.php" class="btn btn-link w-100 text-muted small mt-1">← Kembali ke Destinasi</a>
+                    <a href="destinasi.php" class="btn btn-link w-100 text-muted small mt-2 text-decoration-none">← Kembali ke Destinasi</a>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal Promo -->
 <div class="modal fade" id="modalPromo" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content">
             <div class="modal-header border-0 pb-0">
-                <h5 class="fw-bold">🏷 Pilih Promo</h5>
+                <h6 class="fw-bold mb-0">🏷 Pilih Promo</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body pt-2">
-                <div class="promo-item p-3 mb-2" onclick="pilihPromo('GO-JATENG20', 0.20, 0, 'Diskon 20%')">
+            <div class="modal-body pt-2" style="font-size: 0.85rem;">
+                <div class="promo-item p-2 mb-2" onclick="pilihPromo('GO-JATENG20', 0.20, 0, 'Diskon 20%')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="fw-bold mb-0 text-warning">GO-JATENG20</h6>
-                            <small class="text-muted">Diskon 20% Wisata Jawa Tengah</small>
+                            <span class="fw-bold text-warning d-block" style="font-size:0.85rem">GO-JATENG20</span>
+                            <small class="text-muted" style="font-size:0.75rem">Diskon 20% Wisata Jateng</small>
                         </div>
-                        <span class="badge bg-warning text-dark px-3">Pakai</span>
+                        <span class="badge bg-warning text-dark">Pakai</span>
                     </div>
                 </div>
-                <div class="promo-item p-3 mb-2" onclick="pilihPromo('JATIM-HEBAT', 0, 50000, 'Potongan Rp 50.000')">
+                <div class="promo-item p-2 mb-2" onclick="pilihPromo('JATIM-HEBAT', 0, 50000, 'Potongan Rp 50.000')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="fw-bold mb-0 text-success">JATIM-HEBAT</h6>
-                            <small class="text-muted">Potongan Langsung Rp 50.000</small>
+                            <span class="fw-bold text-success d-block" style="font-size:0.85rem">JATIM-HEBAT</span>
+                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 50.000</small>
                         </div>
-                        <span class="badge bg-success px-3">Pakai</span>
+                        <span class="badge bg-success">Pakai</span>
                     </div>
                 </div>
-                <div class="promo-item p-3 mb-2" onclick="pilihPromo('ALAM-INDO', 0.15, 0, 'Diskon 15%')">
+                <div class="promo-item p-2 mb-2" onclick="pilihPromo('ALAM-INDO', 0.15, 0, 'Diskon 15%')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="fw-bold mb-0 text-info">ALAM-INDO</h6>
-                            <small class="text-muted">Diskon 15% Wisata Alam & Air</small>
+                            <span class="fw-bold text-info d-block" style="font-size:0.85rem">ALAM-INDO</span>
+                            <small class="text-muted" style="font-size:0.75rem">Diskon 15% Wisata Alam</small>
                         </div>
-                        <span class="badge bg-info px-3">Pakai</span>
+                        <span class="badge bg-info">Pakai</span>
                     </div>
                 </div>
-                <div class="promo-item p-3 mb-2" onclick="pilihPromo('IJEN-BLUE', 0, 10000, 'Potongan Rp 10.000')">
+                <div class="promo-item p-2 mb-2" onclick="pilihPromo('IJEN-BLUE', 0, 10000, 'Potongan Rp 10.000')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="fw-bold mb-0" style="color:#1e90ff">IJEN-BLUE</h6>
-                            <small class="text-muted">Flash Sale Kawah Ijen – Potongan Rp 10.000</small>
+                            <span class="fw-bold d-block" style="color:#1e90ff; font-size:0.85rem">IJEN-BLUE</span>
+                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 10.000</small>
                         </div>
-                        <span class="badge px-3" style="background:#1e90ff">Pakai</span>
+                        <span class="badge" style="background:#1e90ff">Pakai</span>
                     </div>
                 </div>
-                <div class="promo-item p-3 mb-2" onclick="pilihPromo('LAWU-DINGIN', 0.10, 0, 'Diskon 10%')">
+                <div class="promo-item p-2 mb-2" onclick="pilihPromo('LAWU-DINGIN', 0.10, 0, 'Diskon 10%')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="fw-bold mb-0" style="color:#6c5ce7">LAWU-DINGIN</h6>
-                            <small class="text-muted">Diskon 10% The Lawu Park</small>
+                            <span class="fw-bold d-block" style="color:#6c5ce7; font-size:0.85rem">LAWU-DINGIN</span>
+                            <small class="text-muted" style="font-size:0.75rem">Diskon 10% The Lawu Park</small>
                         </div>
-                        <span class="badge px-3" style="background:#6c5ce7">Pakai</span>
+                        <span class="badge" style="background:#6c5ce7">Pakai</span>
                     </div>
                 </div>
-                <div class="promo-item p-3 mb-2" onclick="pilihPromo('HELLO-NAYLA', 0, 5000, 'Potongan Rp 5.000')">
+                <div class="promo-item p-2 mb-2" onclick="pilihPromo('HELLO-NAYLA', 0, 5000, 'Potongan Rp 5.000')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="fw-bold mb-0 text-danger">HELLO-NAYLA</h6>
-                            <small class="text-muted">Pengguna Baru – Semua Destinasi</small>
+                            <span class="fw-bold text-danger d-block" style="font-size:0.85rem">HELLO-NAYLA</span>
+                            <small class="text-muted" style="font-size:0.75rem">Pengguna Baru</small>
                         </div>
-                        <span class="badge bg-danger px-3">Pakai</span>
+                        <span class="badge bg-danger">Pakai</span>
                     </div>
                 </div>
-                <button class="btn btn-link w-100 text-muted small mt-2" onclick="pilihPromo('', 0, 0, '')">
+                <button class="btn btn-link w-100 text-muted small mt-2 text-decoration-none" style="font-size: 0.8rem;" onclick="pilihPromo('', 0, 0, '')">
                     <i class="bi bi-x-circle me-1"></i>Tidak Gunakan Promo
                 </button>
             </div>
