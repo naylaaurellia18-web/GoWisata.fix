@@ -140,14 +140,19 @@ $tgl_max = date('Y-m-d', strtotime('+1 year'));
 
                     <div class="mb-4">
                         <label class="section-label">
-                            <i class="bi bi-credit-card me-1"></i>Metode Pembayaran
+                            <i class="bi bi-credit-card me-1 text-secondary"></i>Metode Pembayaran
                         </label>
-                        <select name="metode" class="form-select" required>
-                            <option value="QRIS">🔲 QRIS</option>
-                            <option value="BCA">🏦 Transfer BCA</option>
-                            <option value="DANA">💙 DANA</option>
-                        </select>
-                    </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-white border-end-0 text-muted">
+                                <i class="bi bi-wallet2"></i>
+                            </span>
+                            <select name="metode" class="form-select border-start-0 fw-bold text-secondary" style="font-size: 0.85rem;" required>
+                                <option value="QRIS" class="fw-bold">QRIS (Otomatis)</option>
+                                <option value="BCA" class="fw-bold">Transfer Bank BCA</option>
+                                <option value="DANA" class="fw-bold">E-Wallet DANA</option>
+                            </select>
+                         </div>
+                        </div>
 
                     <button type="submit" class="btn btn-warning w-100 py-2.5 fw-bold text-white shadow rounded-pill">
                         BAYAR SEKARANG 🚀
