@@ -1,19 +1,23 @@
 <?php
-// BUG FIX: include koneksi.php SEBELUM session_start() agar DbSessionHandler aktif
+// WAJIB: koneksi.php SEBELUM session_start()
 include 'koneksi.php';
 session_start();
-// BUG FIX: cek $_SESSION['username'] sebagai fallback karena prosesLogin.php set keduanya
-$_SESSION_user = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
-if (!$_SESSION_user) { header("Location: login.php"); exit(); }
 
-// 1. Tangkap data dari URL (Data dasar dari destinasi.php)
-$wisata = $_GET['wisata'] ?? "Destinasi";
-$harga_asli = (int)($_GET['harga'] ?? 0);
-$diskon = isset($_GET['diskon']) ? (float)$_GET['diskon'] : 0;
-$potongan = isset($_GET['potongan']) ? (int)$_GET['potongan'] : 0;
-$kode = $_GET['kode'] ?? "";
+$username_session = $_SESSION['user'] ?? $_SESSION['username'] ?? null;
+if (!$username_session) { header("Location: login.php"); exit(); }
 
-// 2. Hitung Harga Satuan Awal (Jika ada promo dari halaman sebelumnya)
+$wisata    = isset($_GET['wisata'])   ? strip_tags($_GET['wisata'])   : "Destinasi";
+$harga_asli= isset($_GET['harga'])   ? (int)$_GET['harga']           : 0;
+$diskon    = isset($_GET['diskon'])   ? (float)$_GET['diskon']        : 0;
+$potongan  = isset($_GET['potongan'])? (int)$_GET['potongan']         : 0;
+$kode      = isset($_GET['kode'])    ? strip_tags($_GET['kode'])      : '';
+
+if ($harga_asli <= 0) {
+    echo "<script>alert('Harga tidak valid.'); window.location.href='destinasi.php';</script>";
+    exit();
+}
+
+// Hitung harga satuan setelah promo (dari URL)
 $harga_satuan_promo = $harga_asli;
 if ($diskon > 0) {
     $harga_satuan_promo = $harga_asli - ($harga_asli * $diskon);
@@ -22,7 +26,6 @@ if ($diskon > 0) {
 }
 if ($harga_satuan_promo < 0) $harga_satuan_promo = 0;
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -34,58 +37,70 @@ if ($harga_satuan_promo < 0) $harga_satuan_promo = 0;
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body { background: #f37021; font-family: 'Poppins', sans-serif; }
-        .card-order { border-radius: 20px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .promo-section { background: #fff4ed; border: 2px dashed #f37021; border-radius: 15px; padding: 15px; }
-        .promo-item { cursor: pointer; transition: 0.3s; border-radius: 12px; border: 1px solid #ddd; }
-        .promo-item:hover { border-color: #f37021; background: #fff9f5; }
+        .card-order { border-radius:20px; border:none; box-shadow:0 10px 30px rgba(0,0,0,.1); }
+        .promo-section { background:#fff4ed; border:2px dashed #f37021; border-radius:15px; padding:15px; }
+        .promo-item { cursor:pointer; transition:0.3s; border-radius:12px; border:1px solid #ddd; }
+        .promo-item:hover { border-color:#f37021; background:#fff9f5; }
     </style>
 </head>
 <body>
-
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card card-order p-4">
-                <h4 class="fw-bold text-center mb-4">Detail Pemesanan</h4>
-                
-                <form action="pembayaran.php" method="GET">
-                    <input type="hidden" name="nama" value="<?= htmlspecialchars($_SESSION_user); ?>">
-                    <input type="hidden" name="wisata" value="<?= $wisata; ?>">
-                    <input type="hidden" id="harga_dasar_promo" value="<?= $harga_satuan_promo; ?>">
-                    
+                <h4 class="fw-bold text-center mb-4">🎟 Detail Pemesanan</h4>
+
+                <!-- FIX: Gunakan method GET agar data terkirim lewat URL ke pembayaran.php -->
+                <form action="pembayaran.php" method="GET" id="formPesan">
+                    <input type="hidden" name="nama"   value="<?= htmlspecialchars($username_session); ?>">
+                    <input type="hidden" name="wisata" value="<?= htmlspecialchars($wisata); ?>">
+                    <input type="hidden" id="harga_dasar_promo" value="<?= (int)$harga_satuan_promo; ?>">
+
                     <div class="mb-3">
                         <label class="small text-muted">Destinasi Pilihan</label>
-                        <h5 class="fw-bold text-primary"><?= $wisata; ?></h5>
+                        <h5 class="fw-bold text-primary"><?= htmlspecialchars($wisata); ?></h5>
                     </div>
 
                     <div class="mb-4">
                         <label class="fw-bold small mb-2">Promo Untukmu</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-white"><i class="bi bi-ticket-perforation text-warning"></i></span>
-                            <input type="text" name="kode" id="input_kode" class="form-control bg-white" placeholder="Pilih promo..." value="<?= $kode; ?>" readonly>
-                            <button class="btn btn-warning fw-bold text-white" type="button" data-bs-toggle="modal" data-bs-target="#modalPromo">PILIH</button>
+                            <span class="input-group-text bg-white">
+                                <i class="bi bi-ticket-perforation text-warning"></i>
+                            </span>
+                            <input type="text" name="kode" id="input_kode" class="form-control bg-white"
+                                   placeholder="Pilih atau ketik kode promo..."
+                                   value="<?= htmlspecialchars($kode); ?>" readonly>
+                            <button class="btn btn-warning fw-bold text-white" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#modalPromo">PILIH</button>
                         </div>
                     </div>
 
                     <div class="mb-4">
                         <label class="fw-bold small mb-2">Jumlah Tiket</label>
-                        <input type="number" name="jumlah" id="qty" class="form-control form-control-lg fw-bold" value="1" min="1" oninput="updateHarga()">
+                        <input type="number" name="jumlah" id="qty" class="form-control form-control-lg fw-bold"
+                               value="1" min="1" max="20" oninput="updateHarga()">
                     </div>
 
                     <div class="promo-section mb-4">
                         <div class="d-flex justify-content-between mb-2 small">
-                            <span>Harga Satuan:</span>
-                            <span class="fw-bold text-muted" style="text-decoration: line-through;">Rp <?= number_format($harga_asli, 0, ',', '.'); ?></span>
+                            <span>Harga Normal:</span>
+                            <span class="fw-bold text-muted <?= ($kode !== '') ? 'text-decoration-line-through' : ''; ?>">
+                                Rp <?= number_format($harga_asli, 0, ',', '.'); ?>
+                            </span>
                         </div>
-                        <div id="info_promo" class="d-flex justify-content-between mb-2 small <?= ($kode == '') ? 'd-none' : ''; ?>">
-                            <span>Potongan:</span>
-                            <span class="fw-bold text-success" id="teks_diskon">Terpasang</span>
+                        <div id="info_promo" class="d-flex justify-content-between mb-2 small <?= ($kode === '') ? 'd-none' : ''; ?>">
+                            <span>Potongan Promo:</span>
+                            <span class="fw-bold text-success" id="teks_diskon">
+                                <?= ($kode !== '') ? '-' . ($diskon > 0 ? 'Diskon ' . ($diskon*100) . '%' : 'Rp ' . number_format($potongan,0,',','.')) : ''; ?>
+                            </span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold">Total Bayar:</span>
-                            <h3 class="fw-bold text-primary mb-0" id="tampilan_total">Rp <?= number_format($harga_satuan_promo, 0, ',', '.'); ?></h3>
-                            <input type="hidden" name="total" id="input_total" value="<?= $harga_satuan_promo; ?>">
+                            <h3 class="fw-bold text-primary mb-0" id="tampilan_total">
+                                Rp <?= number_format($harga_satuan_promo, 0, ',', '.'); ?>
+                            </h3>
+                            <input type="hidden" name="total" id="input_total" value="<?= (int)$harga_satuan_promo; ?>">
                         </div>
                     </div>
 
@@ -98,13 +113,17 @@ if ($harga_satuan_promo < 0) $harga_satuan_promo = 0;
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-warning w-100 py-3 fw-bold text-white shadow rounded-pill">BAYAR SEKARANG</button>
+                    <button type="submit" class="btn btn-warning w-100 py-3 fw-bold text-white shadow rounded-pill">
+                        BAYAR SEKARANG 🚀
+                    </button>
+                    <a href="destinasi.php" class="btn btn-link w-100 text-muted small mt-2">← Kembali ke Destinasi</a>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal Promo -->
 <div class="modal fade" id="modalPromo" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -115,23 +134,28 @@ if ($harga_satuan_promo < 0) $harga_satuan_promo = 0;
             <div class="modal-body">
                 <div class="promo-item p-3 mb-3" onclick="pilihPromo('ALAM-INDO', 0.15, 0, 'Diskon 15%')">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="fw-bold mb-0">ALAM-INDO</h6>
-                            <small class="text-muted">Diskon 15% Spesial Wisata Alam</small>
-                        </div>
-                        <span class="badge bg-warning text-white">Pakai</span>
+                        <div><h6 class="fw-bold mb-0">ALAM-INDO</h6>
+                             <small class="text-muted">Diskon 15% Spesial Wisata Alam</small></div>
+                        <span class="badge bg-warning text-white px-3">Pakai</span>
                     </div>
                 </div>
                 <div class="promo-item p-3 mb-3" onclick="pilihPromo('HELLO-NAYLA', 0, 5000, 'Potongan Rp 5.000')">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="fw-bold mb-0">HELLO-NAYLA</h6>
-                            <small class="text-muted">Potongan Langsung Rp 5.000</small>
-                        </div>
-                        <span class="badge bg-warning text-white">Pakai</span>
+                        <div><h6 class="fw-bold mb-0">HELLO-NAYLA</h6>
+                             <small class="text-muted">Potongan Langsung Rp 5.000</small></div>
+                        <span class="badge bg-warning text-white px-3">Pakai</span>
                     </div>
                 </div>
-                <button class="btn btn-link w-100 text-muted small" onclick="pilihPromo('', 0, 0, '')">Tidak Gunakan Promo</button>
+                <div class="promo-item p-3 mb-3" onclick="pilihPromo('GO-JATENG20', 0.20, 0, 'Diskon 20%')">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div><h6 class="fw-bold mb-0">GO-JATENG20</h6>
+                             <small class="text-muted">Diskon 20% Wisata Jawa Tengah</small></div>
+                        <span class="badge bg-warning text-white px-3">Pakai</span>
+                    </div>
+                </div>
+                <button class="btn btn-link w-100 text-muted small" onclick="pilihPromo('', 0, 0, '')">
+                    Tidak Gunakan Promo
+                </button>
             </div>
         </div>
     </div>
@@ -139,45 +163,38 @@ if ($harga_satuan_promo < 0) $harga_satuan_promo = 0;
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+const hargaAsliGlobal = <?= $harga_asli; ?>;
+
 function pilihPromo(kode, diskon, potongan, label) {
-    const hargaAsli = <?= $harga_asli; ?>;
-    let hargaBaru = hargaAsli;
+    let hargaBaru = hargaAsliGlobal;
+    if (diskon > 0)        hargaBaru = hargaAsliGlobal - (hargaAsliGlobal * diskon);
+    else if (potongan > 0) hargaBaru = hargaAsliGlobal - potongan;
+    if (hargaBaru < 0) hargaBaru = 0;
 
-    if (diskon > 0) {
-        hargaBaru = hargaAsli - (hargaAsli * diskon);
-    } else if (potongan > 0) {
-        hargaBaru = hargaAsli - potongan;
-    }
+    document.getElementById('input_kode').value         = kode;
+    document.getElementById('harga_dasar_promo').value  = Math.round(hargaBaru);
 
-    // Update Input Hidden
-    document.getElementById('input_kode').value = kode;
-    document.getElementById('harga_dasar_promo').value = hargaBaru;
-    
-    // Tampilkan label potongan
-    if(kode !== "") {
+    if (kode !== '') {
         document.getElementById('info_promo').classList.remove('d-none');
-        document.getElementById('teks_diskon').innerText = "-" + label;
+        document.getElementById('teks_diskon').innerText = '-' + label;
     } else {
         document.getElementById('info_promo').classList.add('d-none');
     }
 
-    updateHarga(); // Hitung ulang total
+    updateHarga();
     bootstrap.Modal.getInstance(document.getElementById('modalPromo')).hide();
-    
-    if(kode !== "") {
-        Swal.fire({ icon: 'success', title: 'Promo Terpasang!', text: kode, timer: 1200, showConfirmButton: false });
+
+    if (kode !== '') {
+        Swal.fire({ icon:'success', title:'Promo Terpasang!', text:kode, timer:1500, showConfirmButton:false });
     }
 }
 
 function updateHarga() {
-    const hargaSatuan = parseInt(document.getElementById('harga_dasar_promo').value);
-    let qty = document.getElementById('qty').value;
-    
-    if (qty < 1 || qty === "") qty = 1;
-    
+    const hargaSatuan = parseInt(document.getElementById('harga_dasar_promo').value) || 0;
+    let qty = parseInt(document.getElementById('qty').value) || 1;
+    if (qty < 1) qty = 1;
     const total = hargaSatuan * qty;
-    
-    document.getElementById('tampilan_total').innerText = "Rp " + total.toLocaleString('id-ID');
+    document.getElementById('tampilan_total').innerText = 'Rp ' + total.toLocaleString('id-ID');
     document.getElementById('input_total').value = total;
 }
 </script>
