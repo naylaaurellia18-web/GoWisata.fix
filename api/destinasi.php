@@ -105,7 +105,7 @@ if (!$nama_tampil) {
         
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://s-light.tiket.photos/t/01E25EBZS3W0FY9GTG6C42E1SE/rsfit19201280gsm/events/2026/03/25/a31c0d96-04af-41a3-bf0d-e6e1dd47f723-1774431846858-13592ce40930746e3e717f6e07e07d04.jpg" class="card-img-top" alt="Taman Nasional Karimunjawa">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsIs1YIW602fv8a-S9qUgwZWFd8_qyp7X5lQ&s" class="card-img-top" alt="Taman Nasional Karimunjawa">
                 <div class="card-body">
                     <h5 class="fw-bold">Taman Nasional Karimunjawa</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Jepara, Jawa Tengah</p>
@@ -118,7 +118,7 @@ if (!$nama_tampil) {
         
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://asset.kompas.com/crops/YcndS6e_j63Y8v-f-9jW2IitwIs=/0x47:1000x714/1200x800/data/photo/2023/09/27/6513d28bbdb38.jpg" class="card-img-top" alt="The Heritage Palace">
+                <img src="https://s-light.tiket.photos/t/01E25EBZS3W0FY9GTG6C42E1SE/rsfit19201280gsm/events/2026/03/25/a31c0d96-04af-41a3-bf0d-e6e1dd47f723-1774431846858-13592ce40930746e3e717f6e07e07d04.jpg" class="card-img-top" alt="The Heritage Palace">
                 <div class="card-body">
                     <h5 class="fw-bold">Rasamadu (The Heritage Palace)</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Sukoharjo, Jawa Tengah</p>
