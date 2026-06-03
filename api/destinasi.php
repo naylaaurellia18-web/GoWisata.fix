@@ -31,7 +31,7 @@ if (!$nama_tampil) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinasi Wisata - GoWisata</title>
+    <title>Destinasi Wisata Jawa Tengah - GoWisata</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
@@ -69,127 +69,75 @@ if (!$nama_tampil) {
 <div class="container py-5">
     <?php if(isset($_SESSION['promo_aktif'])): ?>
         <div class="alert alert-success alert-dismissible fade show rounded-4 shadow-sm mb-4" role="alert">
-            <i class="bi bi-stars me-2"></i> Promo <b><?= $_SESSION['promo_aktif']['kode']; ?></b> Aktif! Harga akan terpotong otomatis saat pembayaran.
+            <i class="bi bi-stars me-2"></i> Promo <b><?= htmlspecialchars($_SESSION['promo_aktif']['kode']); ?></b> Aktif! Harga akan terpotong otomatis saat pembayaran.
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     <?php endif; ?>
     
-    <h2 class="text-center mb-5 fw-bold text-dark">🌍 Jelajahi Destinasi Favorit Anda</h2>
+    <h2 class="text-center mb-5 fw-bold text-dark">🌍 Jelajahi Destinasi Favorit Jawa Tengah</h2>
 
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRZqPWsn-DyTw7qSrAjenFvPuQsrCvnKjMsw&s" class="card-img-top">
+                <img src="https://asset.kompas.com/crops/O_mX6_uNOnYm_VlC7v_8wX4S1Xg=/0x0:1000x667/1200x800/data/photo/2023/07/31/64c7bf9bc3861.jpg" class="card-img-top" alt="Lawang Sewu">
                 <div class="card-body">
-                    <h5 class="fw-bold">Saloka Theme Park</h5>
+                    <h5 class="fw-bold">Lawang Sewu</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Semarang, Jawa Tengah</p>
-                    <p class="deskripsi">Taman rekreasi keluarga terbesar di Jawa Tengah.</p>
-                    <p class="harga">Rp 120.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Saloka Theme Park','120000')">Pesan Tiket</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="card wisata-card h-100">
-                <img src="https://awsimages.detik.net.id/community/media/visual/2019/03/08/96d60356-f54f-4b9d-a5af-4cbc8c24f3c7_43.jpeg?w=600&q=90" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="fw-bold">Gunung Bromo</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Probolinggo, Jawa Timur</p>
-                    <p class="deskripsi">Nikmati pemandangan matahari terbit yang ikonik.</p>
-                    <p class="harga">Rp 54.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Gunung Bromo','54000')">Pesan Tiket</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="card wisata-card h-100">
-                <img src="https://akcdn.detik.net.id/visual/2025/06/10/fakta-menarik-raja-ampat-foto-unsplashcomsimon-spring-1749562020339_169.png?w=1200&q=90" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="fw-bold">Raja Ampat</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Papua Barat</p>
-                    <p class="deskripsi">Surga bawah laut terbaik di dunia.</p>
-                    <p class="harga">Rp 70.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Raja Ampat','70000')">Pesan Tiket</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="card wisata-card h-100">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7OM01Hpm8lN8VlvB0rVRT1nIxcHEC5_f5pQ&s" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="fw-bold">Solo Safari</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Surakarta, Jawa Tengah</p>
-                    <p class="deskripsi">Kebun binatang modern konsep edukasi.</p>
-                    <p class="harga">Rp 45.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Solo Safari','45000')">Pesan Tiket</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="card wisata-card h-100">
-                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRYjd_AdX84M7qpvH7oaF042Vhqd0iEqjZd0z3m8AcJzJ_-mpbs" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="fw-bold">Candi Borobudur</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Magelang, Jawa Tengah</p>
-                    <p class="deskripsi">Candi Buddha terbesar warisan UNESCO.</p>
-                    <p class="harga">Rp 60.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Candi Borobudur','60000')">Pesan Tiket</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="card wisata-card h-100">
-                <img src="https://asset.kompas.com/crops/vEYhqHZtFtBSHdSty4yOKzoebtE=/68x0:755x458/1200x800/data/photo/2021/05/06/609377da73201.jpg" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="fw-bold">The Lawu Park</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Tawangmangu, Jawa Tengah</p>
-                    <p class="deskripsi">Wisata alam pegunungan dengan wahana salju.</p>
+                    <p class="deskripsi">Gedung bersejarah peninggalan Belanda yang ikonik dengan seribu pintu.</p>
                     <p class="harga">Rp 20.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('The Lawu Park','20000')">Pesan Tiket</button>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Lawang Sewu','20000')">Pesan Tiket</button>
                 </div>
             </div>
         </div>
-
+        
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://s-light.tiket.photos/t/01E25EBZS3W0FY9GTG6C42E1SE/rsfit19201280gsm/events/2023/02/27/0a058f5d-0a8f-4786-a9a7-f1ce72b5aecb-1677480708452-83c74269952404a6069d23b5469fad72.jpg" class="card-img-top">
+                <img src="https://asset.kompas.com/crops/r66iXas8w0bQoRz_jE2O8wOaRms=/0x47:1000x714/1200x800/data/photo/2022/12/26/63a92543e2646.jpg" class="card-img-top" alt="Keraton Surakarta">
                 <div class="card-body">
-                    <h5 class="fw-bold">Jatim Park 1</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Kota Batu, Jawa Timur</p>
-                    <p class="deskripsi">Paduan taman belajar dan rekreasi seru.</p>
-                    <p class="harga">Rp 115.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Jatim Park 1','115000')">Pesan Tiket</button>
+                    <h5 class="fw-bold">Kasunanan Surakarta</h5>
+                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Surakarta, Jawa Tengah</p>
+                    <p class="deskripsi">Istana resmi Kasunanan Surakarta Hadiningrat yang kaya akan budaya Jawa.</p>
+                    <p class="harga">Rp 15.000</p>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Kasunanan Surakarta','15000')">Pesan Tiket</button>
                 </div>
             </div>
         </div>
-
+        
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://jadiberangkat.id/wp-content/uploads/2024/12/kawah-ijen-banyuwangi-2.webp" class="card-img-top">
+                <img src="https://asset.kompas.com/crops/93x1v9FvDovN_9-1Gz3IuYbeVRE=/0x0:780x520/1200x800/data/photo/2021/04/10/607106feef9a1.jpg" class="card-img-top" alt="Air Terjun Jumog">
                 <div class="card-body">
-                    <h5 class="fw-bold">Kawah Ijen</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Banyuwangi, Jawa Timur</p>
-                    <p class="deskripsi">Fenomena Blue Fire dan kawah asam terbesar.</p>
+                    <h5 class="fw-bold">Jumog Waterfall</h5>
+                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Karanganyar, Jawa Tengah</p>
+                    <p class="deskripsi">Air terjun asri di lereng Gunung Lawu, sering dijuluki Surga yang Hilang.</p>
+                    <p class="harga">Rp 20.000</p>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Jumog Waterfall','20000')">Pesan Tiket</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card wisata-card h-100">
+                <img src="https://asset.kompas.com/crops/B6V_qFzAnA-wMvH2t5_F893a9Cg=/0x0:1000x667/1200x800/data/photo/2023/02/10/63e6396e8bc37.jpg" class="card-img-top" alt="Dieng Plateau">
+                <div class="card-body">
+                    <h5 class="fw-bold">Dieng Plateau</h5>
+                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Wonosobo, Jawa Tengah</p>
+                    <p class="deskripsi">Dataran tinggi dengan pesona kompleks candi Hindu purba dan kawah aktif.</p>
                     <p class="harga">Rp 30.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Kawah Ijen','30000')">Pesan Tiket</button>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Dieng Plateau','30000')">Pesan Tiket</button>
                 </div>
             </div>
         </div>
-
+        
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://nagantour.com/wp-content/uploads/2024/07/Pura-Tirta-Empul-Bali-.webp" class="card-img-top">
+                <img src="https://asset.kompas.com/crops/ZImN1vW8Z2f2Wj37_1Tz3wVqC5Y=/0x0:1000x667/1200x800/data/photo/2023/03/10/640add7b9499d.jpg" class="card-img-top" alt="Karimunjawa">
                 <div class="card-body">
-                    <h5 class="fw-bold">Pura Tirta Empul</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Tampaksiring, Bali</p>
-                    <p class="deskripsi">Pura suci dengan sumber mata air ritual.</p>
-                    <p class="harga">Rp 75.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Pura Tirta Empul','75000')">Pesan Tiket</button>
+                    <h5 class="fw-bold">Kepulauan Karimunjawa</h5>
+                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Jepara, Jawa Tengah</p>
+                    <p class="deskripsi">Pesona taman nasional laut dengan pasir putih dan terumbu karang yang indah.</p>
+                    <p class="harga">Rp 150.000</p>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Kepulauan Karimunjawa','15000')">Pesan Tiket</button>
                 </div>
             </div>
         </div>
@@ -245,7 +193,7 @@ function lanjutBayar() {
               "&harga=" + hargaTerpilih + 
               "&diskon=" + diskon + 
               "&potongan=" + potongan + 
-              "&kode=" + kode;
+              "&kode=" + encodeURIComponent(kode);
               
     window.location.href = url;
 }
