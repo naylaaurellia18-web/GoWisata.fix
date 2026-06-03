@@ -151,8 +151,8 @@ $tgl_max = date('Y-m-d', strtotime('+1 year'));
                                 <option value="BCA" class="fw-bold">Transfer Bank BCA</option>
                                 <option value="DANA" class="fw-bold">E-Wallet DANA</option>
                             </select>
-                         </div>
                         </div>
+                    </div>
 
                     <button type="submit" class="btn btn-warning w-100 py-2.5 fw-bold text-white shadow rounded-pill">
                         BAYAR SEKARANG 🚀
@@ -172,60 +172,67 @@ $tgl_max = date('Y-m-d', strtotime('+1 year'));
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body pt-2" style="font-size: 0.85rem;">
+                
                 <div class="promo-item p-2 mb-2" onclick="pilihPromo('GO-JATENG20', 0.20, 0, 'Diskon 20%')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <span class="fw-bold text-warning d-block" style="font-size:0.85rem">GO-JATENG20</span>
-                            <small class="text-muted" style="font-size:0.75rem">Diskon 20% Wisata Jateng</small>
+                            <span class="fw-bold text-danger d-block" style="font-size:0.85rem">GO-JATENG20</span>
+                            <small class="text-muted" style="font-size:0.75rem">Diskon 20% Borobudur, Saloka, Solo Safari</small>
                         </div>
-                        <span class="badge bg-warning text-dark">Pakai</span>
+                        <span class="badge bg-danger text-white">Pakai</span>
                     </div>
                 </div>
+
                 <div class="promo-item p-2 mb-2" onclick="pilihPromo('JATIM-HEBAT', 0, 50000, 'Potongan Rp 50.000')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <span class="fw-bold text-success d-block" style="font-size:0.85rem">JATIM-HEBAT</span>
-                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 50.000</small>
+                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 50.000 Bromo / Jatim Park</small>
                         </div>
-                        <span class="badge bg-success">Pakai</span>
+                        <span class="badge bg-success text-white">Pakai</span>
                     </div>
                 </div>
+
                 <div class="promo-item p-2 mb-2" onclick="pilihPromo('ALAM-INDO', 0.15, 0, 'Diskon 15%')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <span class="fw-bold text-info d-block" style="font-size:0.85rem">ALAM-INDO</span>
-                            <small class="text-muted" style="font-size:0.75rem">Diskon 15% Wisata Alam</small>
+                            <span class="fw-bold text-warning d-block" style="font-size:0.85rem">ALAM-INDO</span>
+                            <small class="text-muted" style="font-size:0.75rem">Diskon 15% Wisata Alam & Air</small>
                         </div>
-                        <span class="badge bg-info">Pakai</span>
+                        <span class="badge bg-warning text-dark">Pakai</span>
                     </div>
                 </div>
+
                 <div class="promo-item p-2 mb-2" onclick="pilihPromo('IJEN-BLUE', 0, 10000, 'Potongan Rp 10.000')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <span class="fw-bold d-block" style="color:#1e90ff; font-size:0.85rem">IJEN-BLUE</span>
-                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 10.000</small>
+                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 10.000 Kawah Ijen</small>
                         </div>
-                        <span class="badge" style="background:#1e90ff">Pakai</span>
+                        <span class="badge text-white" style="background:#1e90ff">Pakai</span>
                     </div>
                 </div>
+
                 <div class="promo-item p-2 mb-2" onclick="pilihPromo('LAWU-DINGIN', 0.10, 0, 'Diskon 10%')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <span class="fw-bold d-block" style="color:#6c5ce7; font-size:0.85rem">LAWU-DINGIN</span>
                             <small class="text-muted" style="font-size:0.75rem">Diskon 10% The Lawu Park</small>
                         </div>
-                        <span class="badge" style="background:#6c5ce7">Pakai</span>
+                        <span class="badge text-white" style="background:#6c5ce7">Pakai</span>
                     </div>
                 </div>
+
                 <div class="promo-item p-2 mb-2" onclick="pilihPromo('HELLO-NAYLA', 0, 5000, 'Potongan Rp 5.000')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <span class="fw-bold text-danger d-block" style="font-size:0.85rem">HELLO-NAYLA</span>
-                            <small class="text-muted" style="font-size:0.75rem">Pengguna Baru</small>
+                            <span class="fw-bold d-block" style="color:#f37021; font-size:0.85rem">HELLO-NAYLA</span>
+                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 5.000 Semua Destinasi</small>
                         </div>
-                        <span class="badge bg-danger">Pakai</span>
+                        <span class="badge text-white" style="background:#f37021">Pakai</span>
                     </div>
                 </div>
+
                 <button class="btn btn-link w-100 text-muted small mt-2 text-decoration-none" style="font-size: 0.8rem;" onclick="pilihPromo('', 0, 0, '')">
                     <i class="bi bi-x-circle me-1"></i>Tidak Gunakan Promo
                 </button>
