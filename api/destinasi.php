@@ -79,7 +79,7 @@ if (!$nama_tampil) {
     <div class="row g-4 justify-content-center">
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://asset.kompas.com/crops/O_mX6_uNOnYm_VlC7v_8wX4S1Xg=/0x0:1000x667/1200x800/data/photo/2023/07/31/64c7bf9bc3861.jpg" class="card-img-top" alt="Lawang Sewu">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHYCesL6XLyhzBwbkww_PeeSZDKQ47exD9SJ-wO8B51ymrZ3w2W3HzqulvlFezRB1kYvUXdyDeIib9b-NBQ4k1IWbAnZlkSQkFFDNen3DBW2PWYpMJPYerFtdWI549x5dQmr23I=s1360-w1360-h1020-rw" class="card-img-top" alt="Lawang Sewu">
                 <div class="card-body">
                     <h5 class="fw-bold">Lawang Sewu</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Semarang, Jawa Tengah</p>
@@ -105,7 +105,7 @@ if (!$nama_tampil) {
         
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://asset.kompas.com/crops/93x1v9FvDovN_9-1Gz3IuYbeVRE=/0x0:780x520/1200x800/data/photo/2021/04/10/607106feef9a1.jpg" class="card-img-top" alt="Air Terjun Jumog">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7DZoaweDpD-e9Uxr6qDQHJxZR_SNHVfYwvw&s" class="card-img-top" alt="Air Terjun Jumog">
                 <div class="card-body">
                     <h5 class="fw-bold">Jumog Waterfall</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Karanganyar, Jawa Tengah</p>
@@ -118,7 +118,7 @@ if (!$nama_tampil) {
         
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://asset.kompas.com/crops/B6V_qFzAnA-wMvH2t5_F893a9Cg=/0x0:1000x667/1200x800/data/photo/2023/02/10/63e6396e8bc37.jpg" class="card-img-top" alt="Dieng Plateau">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0zQ6xPY9sCcj8YltSdQBlJAYeyb7KaFBsfw&s" class="card-img-top" alt="Dieng Plateau">
                 <div class="card-body">
                     <h5 class="fw-bold">Dieng Plateau</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Wonosobo, Jawa Tengah</p>
@@ -131,7 +131,7 @@ if (!$nama_tampil) {
         
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://asset.kompas.com/crops/ZImN1vW8Z2f2Wj37_1Tz3wVqC5Y=/0x0:1000x667/1200x800/data/photo/2023/03/10/640add7b9499d.jpg" class="card-img-top" alt="Karimunjawa">
+                <img src="https://cdn.digitaldesa.id/uploads/profil/33.01.11.2008/berita/921d4dcfcd851db65d1a051fbe54a224.jpg" class="card-img-top" alt="Karimunjawa">
                 <div class="card-body">
                     <h5 class="fw-bold">Kepulauan Karimunjawa</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Jepara, Jawa Tengah</p>
