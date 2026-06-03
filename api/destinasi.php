@@ -79,65 +79,65 @@ if (!$nama_tampil) {
     <div class="row g-4 justify-content-center">
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHYCesL6XLyhzBwbkww_PeeSZDKQ47exD9SJ-wO8B51ymrZ3w2W3HzqulvlFezRB1kYvUXdyDeIib9b-NBQ4k1IWbAnZlkSQkFFDNen3DBW2PWYpMJPYerFtdWI549x5dQmr23I=s1360-w1360-h1020-rw" class="card-img-top" alt="Lawang Sewu">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRZqPWsn-DyTw7qSrAjenFvPuQsrCvnKjMsw&s" class="card-img-top" alt="Saloka Theme Park">
                 <div class="card-body">
-                    <h5 class="fw-bold">Lawang Sewu</h5>
+                    <h5 class="fw-bold">Saloka Theme Park</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Semarang, Jawa Tengah</p>
-                    <p class="deskripsi">Gedung bersejarah peninggalan Belanda yang ikonik dengan seribu pintu.</p>
-                    <p class="harga">Rp 20.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Lawang Sewu','20000')">Pesan Tiket</button>
+                    <p class="deskripsi">Taman rekreasi keluarga terbesar di Jawa Tengah dengan berbagai wahana seru.</p>
+                    <p class="harga">Rp 120.000</p>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Saloka Theme Park','120000')">Pesan Tiket</button>
                 </div>
             </div>
         </div>
         
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://asset.kompas.com/crops/r66iXas8w0bQoRz_jE2O8wOaRms=/0x47:1000x714/1200x800/data/photo/2022/12/26/63a92543e2646.jpg" class="card-img-top" alt="Keraton Surakarta">
+                <img src="https://cdn1-production-images-kly.akamaized.net/KRV05_LNI_woM1xsLULUlF-KGZE=/1200x675/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/3023951/original/083764400_1579164554-indonesia-1098328_1920.jpg" class="card-img-top" alt="Candi Borobudur">
                 <div class="card-body">
-                    <h5 class="fw-bold">Kasunanan Surakarta</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Surakarta, Jawa Tengah</p>
-                    <p class="deskripsi">Istana resmi Kasunanan Surakarta Hadiningrat yang kaya akan budaya Jawa.</p>
-                    <p class="harga">Rp 15.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Kasunanan Surakarta','15000')">Pesan Tiket</button>
+                    <h5 class="fw-bold">Candi Borobudur</h5>
+                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Magelang, Jawa Tengah</p>
+                    <p class="deskripsi">Candi Buddha terbesar di dunia yang diakui sebagai warisan budaya dunia oleh UNESCO.</p>
+                    <p class="harga">Rp 300.000</p>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Candi Borobudur','50000')">Pesan Tiket</button>
                 </div>
             </div>
         </div>
         
         <div class="col-md-4">
             <div class="card wisata-card h-100">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7DZoaweDpD-e9Uxr6qDQHJxZR_SNHVfYwvw&s" class="card-img-top" alt="Air Terjun Jumog">
+                <img src="https://s-light.tiket.photos/t/01E25EBZS3W0FY9GTG6C42E1SE/rsfit19201280gsm/events/2026/03/25/a31c0d96-04af-41a3-bf0d-e6e1dd47f723-1774431846858-13592ce40930746e3e717f6e07e07d04.jpg" class="card-img-top" alt="Taman Nasional Karimunjawa">
                 <div class="card-body">
-                    <h5 class="fw-bold">Jumog Waterfall</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Karanganyar, Jawa Tengah</p>
-                    <p class="deskripsi">Air terjun asri di lereng Gunung Lawu, sering dijuluki Surga yang Hilang.</p>
-                    <p class="harga">Rp 20.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Jumog Waterfall','20000')">Pesan Tiket</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="card wisata-card h-100">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0zQ6xPY9sCcj8YltSdQBlJAYeyb7KaFBsfw&s" class="card-img-top" alt="Dieng Plateau">
-                <div class="card-body">
-                    <h5 class="fw-bold">Dieng Plateau</h5>
-                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Wonosobo, Jawa Tengah</p>
-                    <p class="deskripsi">Dataran tinggi dengan pesona kompleks candi Hindu purba dan kawah aktif.</p>
-                    <p class="harga">Rp 30.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Dieng Plateau','30000')">Pesan Tiket</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="card wisata-card h-100">
-                <img src="https://cdn.digitaldesa.id/uploads/profil/33.01.11.2008/berita/921d4dcfcd851db65d1a051fbe54a224.jpg" class="card-img-top" alt="Karimunjawa">
-                <div class="card-body">
-                    <h5 class="fw-bold">Kepulauan Karimunjawa</h5>
+                    <h5 class="fw-bold">Taman Nasional Karimunjawa</h5>
                     <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Jepara, Jawa Tengah</p>
-                    <p class="deskripsi">Pesona taman nasional laut dengan pasir putih dan terumbu karang yang indah.</p>
-                    <p class="harga">Rp 150.000</p>
-                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Kepulauan Karimunjawa','15000')">Pesan Tiket</button>
+                    <p class="deskripsi">Pesona wisata bahari terindah dengan keindahan bawah laut dan pantai pasir putih.</p>
+                    <p class="harga">Rp 200.000</p>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Taman Nasional Karimunjawa','150000')">Pesan Tiket</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card wisata-card h-100">
+                <img src="https://asset.kompas.com/crops/YcndS6e_j63Y8v-f-9jW2IitwIs=/0x47:1000x714/1200x800/data/photo/2023/09/27/6513d28bbdb38.jpg" class="card-img-top" alt="The Heritage Palace">
+                <div class="card-body">
+                    <h5 class="fw-bold">Rasamadu (The Heritage Palace)</h5>
+                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Sukoharjo, Jawa Tengah</p>
+                    <p class="deskripsi">Bekas pabrik gula Gembongan abad ke-19 yang diubah menjadi tempat wisata bergaya Eropa.</p>
+                    <p class="harga">Rp 80.000</p>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Rasamadu (The Heritage Palace)','30000')">Pesan Tiket</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card wisata-card h-100">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuZgalMALjLh8eeh4WdWlGIMKLeZ4RPPWGIg&s" class="card-img-top" alt="Solo Safari">
+                <div class="card-body">
+                    <h5 class="fw-bold">Solo Safari</h5>
+                    <p class="lokasi"><i class="bi bi-geo-alt-fill"></i> Surakarta, Jawa Tengah</p>
+                    <p class="deskripsi">Kawasan kebun binatang modern dengan konsep edukasi satwa yang interaktif.</p>
+                    <p class="harga">Rp 60.000</p>
+                    <button class="btn btn-warning w-100 fw-bold" onclick="pesanTiket('Solo Safari','45000')">Pesan Tiket</button>
                 </div>
             </div>
         </div>
