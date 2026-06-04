@@ -183,11 +183,11 @@ $tgl_max = date('Y-m-d', strtotime('+1 year'));
                     </div>
                 </div>
 
-                <div class="promo-item p-2 mb-2" onclick="pilihPromo('JATIM-HEBAT', 0, 50000, 'Potongan Rp 50.000')">
+                <div class="promo-item p-2 mb-2" onclick="pilihPromo('JATENG-HEBAT', 0, 50000, 'Potongan Rp 50.000')">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <span class="fw-bold text-success d-block" style="font-size:0.85rem">JATIM-HEBAT</span>
-                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 50.000 Bromo / Jatim Park</small>
+                            <span class="fw-bold text-success d-block" style="font-size:0.85rem">JATENG-HEBAT</span>
+                            <small class="text-muted" style="font-size:0.75rem">Potongan Rp 50.000 Bromo /</small>
                         </div>
                         <span class="badge bg-success text-white">Pakai</span>
                     </div>

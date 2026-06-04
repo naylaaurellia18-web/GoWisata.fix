@@ -74,7 +74,7 @@ $nama_tampil = $username_login;
                         <i class="bi bi-geo-alt-fill fs-3"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h3 class="fw-bold mb-0">9</h3>
+                        <h3 class="fw-bold mb-0">5</h3>
                         <p class="text-muted small mb-0">Destinasi Wisata</p>
                     </div>
                 </div>
@@ -100,7 +100,7 @@ $nama_tampil = $username_login;
                         <i class="bi bi-lightning-charge-fill fs-3"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h3 class="fw-bold mb-0">12</h3>
+                        <h3 class="fw-bold mb-0">5</h3>
                         <p class="text-muted small mb-0">Promo Spesial</p>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ $nama_tampil = $username_login;
                     <i class="bi bi-ticket-perforated"></i>
                 </div>
                 <h5 class="fw-bold">Sistem Tiket</h5>
-                <p class="text-muted small">Lihat daftar 9 destinasi favorit dan pesan tiketnya.</p>
+                <p class="text-muted small">Lihat daftar 5 destinasi favorit dan pesan tiketnya.</p>
                 <button class="btn btn-outline-primary btn-sm rounded-pill mt-2 px-4">Buka</button>
             </div>
         </div>
